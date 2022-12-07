@@ -16,6 +16,7 @@ export const Nav = styled.nav`
         color: #FEF7FF;
         text-decoration: none;
         border-radius: 8px;
+        font-size: 0.875rem;
         /* text-underline-offset: 8px; */
 
         transition: all 0.3s ease-in-out;
