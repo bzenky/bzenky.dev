@@ -13,7 +13,7 @@ export const Nav = styled.nav`
 
     a {
         padding: 12px 16px;
-        color: #FEF7FF;
+        color: #B2A7B8;
         text-decoration: none;
         border-radius: 8px;
         font-size: 0.875rem;
@@ -23,6 +23,7 @@ export const Nav = styled.nav`
 
         &:hover {
             background: #3B2A45;
+            color: #FFFFFF;
             /* text-decoration: underline; */
         }
     }

@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     
   body {
       min-height: 100vh;
-      background-color: #20031d;
+      background-color: #211925;
   }
 
   body {
@@ -18,5 +18,11 @@ export const GlobalStyle = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Anek Telugu', sans-serif;
+  }
+
+  @media only screen and (max-width: 425px) {
+    html {
+        font-size: 14px;
+    }
   }
 `
