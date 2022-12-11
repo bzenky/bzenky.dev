@@ -1,5 +1,5 @@
-import { GithubLogo, InstagramLogo, LinkedinLogo, YoutubeLogo } from "phosphor-react";
-import { FooterContainer, Nav } from "./styles";
+import { GithubLogo, InstagramLogo, LinkedinLogo, YoutubeLogo } from "phosphor-react"
+import { FooterContainer, Nav } from "./styles"
 
 export function Footer() {
     return (

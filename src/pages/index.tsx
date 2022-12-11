@@ -1,4 +1,4 @@
-import { Content, HomeContainer } from "../../styles/pages/home";
+import { Content, HomeContainer } from "../../styles/pages/home"
 
 export default function App() {
   return (

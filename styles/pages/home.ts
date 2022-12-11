@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const HomeContainer = styled.div`
     max-width: 760px;
@@ -24,7 +24,7 @@ export const HomeContainer = styled.div`
             transition: color 0.3s ease-in-out;
 
             &:hover {
-                color: #B2A7B8;
+                color: #3FFCE8;
             }
         }
 
