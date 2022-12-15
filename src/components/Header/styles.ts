@@ -5,7 +5,7 @@ export const HeaderContainer = styled.header`
     align-items: center;
     justify-content: center;
     height: 80px;
-    padding: 10px 0;
+    padding: 12px 0;
 `
 
 export const Nav = styled.nav`
@@ -19,14 +19,15 @@ export const Nav = styled.nav`
         text-decoration: none;
         border-radius: 8px;
         font-size: 0.875rem;
-        /* text-underline-offset: 8px; */
 
         transition: all 0.3s ease-in-out;
 
-        &:hover {
+        @media only screen and (min-width: 768px) {
+            &:hover {
             background: #3B2A45;
             color: #FFFFFF;
-            /* text-decoration: underline; */
         }
+    }
+
     }
 `

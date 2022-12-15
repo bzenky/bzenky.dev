@@ -11,7 +11,7 @@ export const ProjectContainer = styled.div`
         color: #8117c7;
     }
 
-    p {
+    > p {
         line-height: 1.8;
         color: #B2A7B8;
         font-size: 1rem;
