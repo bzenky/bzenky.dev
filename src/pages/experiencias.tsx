@@ -1,4 +1,4 @@
-import { CareerItemWrapper, ExperienciesContainer } from "../../styles/pages/experiences";
+import { CareerItemWrapper, ExperienciesContainer } from "../../styles/pages/experiences"
 
 export default function Experiencias() {
     return (

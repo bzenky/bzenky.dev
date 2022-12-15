@@ -1,5 +1,10 @@
 import Image from "next/image"
-import { AboutContainer, BioWrapper, CareerItemWrapper, Main, PhotoBioWrapper } from "../../styles/pages/about"
+import {
+    AboutContainer,
+    BioWrapper,
+    Main,
+    PhotoBioWrapper
+} from "../../styles/pages/about"
 import profilePhoto from '../assets/zenky.png'
 
 export default function Sobre() {
@@ -11,7 +16,7 @@ export default function Sobre() {
                     <Image src={profilePhoto} alt="Zenky's Profile Photo" />
 
                     <BioWrapper>
-                        <p>Olá, eu sou Bruno Zenky, um entusiasta de finanças, exatas e tecnologia. </p>
+                        <p>Olá, eu sou Bruno Zenky, um entusiasta de finanças, exatas e tecnologia.</p>
                         <p>Inicialmente com formação em Ciências Contábeis e com experiência na área de RH, no meio da pandemia despertou um desejo antigo de trabalhar/estudar tecnologia.</p>
                         <p>Após muito estudo tive a oportunidade de fazer a transição de carreira como Desenvolvedor Front-end, e desde então os desafios e estudos nunca pararam.</p>
                     </BioWrapper>

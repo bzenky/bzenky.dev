@@ -1,5 +1,5 @@
-import { ProjectContainer, ProjectsWrapper } from "../../styles/pages/projects"
 import { ProjectCard } from "../components/ProjectCard"
+import { ProjectContainer, ProjectsWrapper } from "../../styles/pages/projects"
 
 export default function Projetos() {
     return (
