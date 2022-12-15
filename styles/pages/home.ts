@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const HomeContainer = styled.div`
-    max-width: 760px;
+    max-width: 800px;
     height: calc(100vh - 160px);
     margin: 0 auto;
 

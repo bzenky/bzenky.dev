@@ -1,7 +1,7 @@
 import { ProjectContainer, ProjectsWrapper } from "../../styles/pages/projects"
 import { ProjectCard } from "../components/ProjectCard"
 
-export default function Projects() {
+export default function Projetos() {
     return (
         <ProjectContainer>
             <h1>Projetos</h1>

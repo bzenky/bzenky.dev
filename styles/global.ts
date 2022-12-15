@@ -5,7 +5,22 @@ export const GlobalStyle = createGlobalStyle`
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scrollbar-width: auto;
+      scrollbar-color: #8117c7 #ffffff;
   }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #211925;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #8f54a0;
+    border-radius: 8px;
+  } 
     
   body {
       min-height: 100vh;

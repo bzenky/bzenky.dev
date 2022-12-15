@@ -45,36 +45,11 @@ export const BioWrapper = styled.div`
         strong {
             color: #FFF;
         }
-    }
-
-    
+    }    
 
     @media only screen and (max-width: 768px) {
         p {
             margin-top: 16px;
-        }
-    }
-`
-
-export const CareerItemWrapper = styled.div`
-    margin-top: 24px;
-    line-height: 1.5;
-    color: #B2A7B8;
-    font-size: 1rem;
-
-    h3 {
-        color: #FFF;
-        font-size: 1.125rem;
-    }
-
-    a {
-        text-decoration: underline;
-        text-underline-offset: 2px;
-        color: #FFF;
-        transition: color 0.2s ease-in-out;
-
-        &:hover {
-            color: #3FFCE8;
         }
     }
 `

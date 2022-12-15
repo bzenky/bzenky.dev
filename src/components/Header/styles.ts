@@ -3,13 +3,15 @@ import styled from "styled-components"
 export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
-    height: 80px;
     justify-content: center;
+    height: 80px;
+    padding: 10px 0;
 `
 
 export const Nav = styled.nav`
     display: flex;
     gap: 24px;
+    overflow: auto;
 
     a {
         padding: 12px 16px;

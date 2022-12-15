@@ -8,10 +8,13 @@ export function Header() {
                 <Link href='/'>
                     HOME
                 </Link>
-                <Link href='/about'>
+                <Link href='/sobre'>
                     SOBRE
                 </Link>
-                <Link href='/projects'>
+                <Link href='/experiencias'>
+                    EXPERIÊNCIAS
+                </Link>
+                <Link href='/projetos'>
                     PROJETOS
                 </Link>
             </Nav>
