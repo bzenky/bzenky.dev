@@ -1,3 +1,4 @@
+import Head from "next/head"
 import { ProjectCard } from "../components/ProjectCard"
 import { ProjectContainer, ProjectsWrapper } from "../../styles/pages/projects"
 import book from '../assets/book.json'
@@ -7,39 +8,48 @@ import star from '../assets/star.json'
 
 export default function Projetos() {
     return (
-        <ProjectContainer>
-            <h1>Projetos</h1>
-            <p>Entre desafios de cursos e projetos próprios, estou sempre estudando e realizando algum projeto, segue alguns dos projetos.</p>
+        <>
+            <Head>
+                <title>Projetos | Zenky</title>
+                <meta content='Alguns dos meus projetos pessoais preferidos.' name="description" />
+                <meta content='Alguns dos meus projetos pessoais preferidos.' property="og:description" />
+            </Head>
 
-            <ProjectsWrapper>
-                <ProjectCard
-                    name="Pomo Pomodoro"
-                    description="Pomodoro com rádio lofi"
-                    url="https://www.pomopomodoro.tech"
-                    icon={clock}
-                />
 
-                <ProjectCard
-                    name="Todo List"
-                    description="Aplicação para gerenciar suas atividades"
-                    url="https://www.todolist.bzenky.dev"
-                    icon={book}
-                />
+            <ProjectContainer>
+                <h1>Projetos</h1>
+                <p>Entre desafios de cursos e projetos próprios, estou sempre estudando e realizando algum projeto, segue alguns dos projetos.</p>
 
-                <ProjectCard
-                    name="Yotei Theme"
-                    description="Tema para VS Code inspirado em um entardecer"
-                    url="https://marketplace.visualstudio.com/items?itemName=Zenky.yotei"
-                    icon={eye}
-                />
+                <ProjectsWrapper>
+                    <ProjectCard
+                        name="Pomo Pomodoro"
+                        description="Pomodoro com rádio lofi"
+                        url="https://www.pomopomodoro.tech"
+                        icon={clock}
+                    />
 
-                <ProjectCard
-                    name="Pokedex"
-                    description="Uma pokedex contendo a primeira geração de pokemons"
-                    url="https://www.pokedex.bzenky.dev/"
-                    icon={star}
-                />
-            </ProjectsWrapper>
-        </ProjectContainer>
+                    <ProjectCard
+                        name="Todo List"
+                        description="Aplicação para gerenciar suas atividades"
+                        url="https://www.todolist.bzenky.dev"
+                        icon={book}
+                    />
+
+                    <ProjectCard
+                        name="Yotei Theme"
+                        description="Tema para VS Code inspirado em um entardecer"
+                        url="https://marketplace.visualstudio.com/items?itemName=Zenky.yotei"
+                        icon={eye}
+                    />
+
+                    <ProjectCard
+                        name="Pokedex"
+                        description="Uma pokedex contendo a primeira geração de pokemons"
+                        url="https://www.pokedex.bzenky.dev/"
+                        icon={star}
+                    />
+                </ProjectsWrapper>
+            </ProjectContainer>
+        </>
     )
 }
