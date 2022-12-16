@@ -23,4 +23,8 @@ export const ProjectsWrapper = styled.div`
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 24px;
+
+    @media only screen and (max-width: 768px) {
+        gap: 16px;
+    }
 `

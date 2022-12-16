@@ -35,7 +35,7 @@ export default function Projetos() {
 
                 <ProjectCard
                     name="Pokedex"
-                    description="Uma pokedex contendo a primeira geração dos pokemons"
+                    description="Uma pokedex contendo a primeira geração de pokemons"
                     url="https://www.pokedex.bzenky.dev/"
                     icon={star}
                 />
