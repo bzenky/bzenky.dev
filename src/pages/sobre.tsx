@@ -21,7 +21,7 @@ export default function Sobre() {
                 <h1>Sobre</h1>
                 <Main>
                     <PhotoBioWrapper>
-                        <Image src={profilePhoto} alt="Zenky's Profile Photo" />
+                        <Image src={profilePhoto} alt="Zenky's Profile Photo" priority />
 
                         <BioWrapper>
                             <p>Olá, eu sou Bruno Zenky, um entusiasta de finanças, exatas e tecnologia.</p>
