@@ -1,8 +1,7 @@
-import Link from "next/link"
 import Lottie from 'lottie-react'
 import styled from "styled-components"
 
-export const ProjectCardContainer = styled(Link)`
+export const ProjectCardContainer = styled.a`
     width: 180px;
     height: 200px;
     padding: 16px 12px;

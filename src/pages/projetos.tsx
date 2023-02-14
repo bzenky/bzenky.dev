@@ -18,12 +18,12 @@ export default function Projetos() {
 
             <ProjectContainer>
                 <h1>Projetos</h1>
-                <p>Entre desafios de cursos e projetos próprios, estou sempre estudando e realizando algum projeto, segue alguns dos projetos.</p>
+                <p>Alguns dos meus projetos pessoais preferidos - entre projetos de curso que foram implementadas novas features, a projetos desenvolvidos do zero.</p>
 
                 <ProjectsWrapper>
                     <ProjectCard
                         name="Pomo Pomodoro"
-                        description="Pomodoro com rádio lofi"
+                        description="Pomodoro com rádio lofi e várias configurações"
                         url="https://www.pomopomodoro.tech"
                         icon={clock}
                     />
@@ -44,7 +44,7 @@ export default function Projetos() {
 
                     <ProjectCard
                         name="Pokedex"
-                        description="Uma pokedex contendo a primeira geração de pokemons"
+                        description="Uma pokedex contendo a primeira geração de pokémons"
                         url="https://www.pokedex.bzenky.dev/"
                         icon={star}
                     />

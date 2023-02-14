@@ -14,10 +14,6 @@ export function Header() {
             'name': 'sobre',
         },
         {
-            'url': '/experiencias',
-            'name': 'experiências',
-        },
-        {
             'url': '/projetos',
             'name': 'projetos',
         },
