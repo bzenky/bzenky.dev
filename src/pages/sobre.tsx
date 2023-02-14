@@ -54,7 +54,7 @@ export default function Sobre() {
                                 <span> · Rio do Sul - SC</span>
                             </div>
                             <span>nov 2021 - momento</span>
-                            <p>Atividades de suporte/correção, desenvolvimento de features novas, recriação de features existentes no dashboard para React.</p>
+                            <p>Atividades de suporte/correção, atualização na estilização de ferramentas e componentes, desenvolvimento de features novas, recriação e atualização de features existentes para React.</p>
                             <span>Stacks: React · TypeScript · JavaScript · JQuery ·  SASS · Twig</span>
                         </CareerItemWrapper>
 
