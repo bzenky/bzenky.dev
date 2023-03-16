@@ -42,7 +42,7 @@ export default function Sobre() {
                         <ExperiencesHeader>
                             <h2>Experiências</h2>
 
-                            <a href="/bzenky.pdf" target="_blank" download="CV - Bruno Zenky G Asano.pdf">
+                            <a href="/bzenky.pdf" target="_blank" download="CV - Bruno Zenky G Asano">
                                 Baixar CV
                             </a>
                         </ExperiencesHeader>
