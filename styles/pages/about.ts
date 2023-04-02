@@ -39,8 +39,11 @@ export const BioWrapper = styled.div`
     line-height: 1.8;
 
     p {
-        margin-top: 8px;
         color: #B2A7B8;
+
+        & + p {
+            margin-top: 8px;
+        }
 
         strong,
         span,
@@ -121,7 +124,8 @@ export const CareerItemWrapper = styled.div`
     }
     }
 
-    > p {
-        margin: 8px 0;
+    > ul {
+        margin: 12px 0;
+        line-height: 1.7;
     }
 `

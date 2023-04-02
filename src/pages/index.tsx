@@ -6,16 +6,16 @@ export default function App() {
     <>
       <Head>
         <title>Zenky</title>
-        <meta content='Meu site pessoal contendo informações, projetos, contatos.' name="description" />
-        <meta content='Meu site pessoal contendo informações, projetos, contatos.' property="og:description" />
+        <meta content='My personal website with informations, projects and contacts.' name="description" />
+        <meta content='My personal website with informations, projects and contacts.' property="og:description" />
       </Head>
 
       <HomeContainer>
         <Content>
           <h1>Zenky</h1>
           <p>
-            Desenvolvedor Front-end na <a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord</a>
-            <span>Codando ideias e compartilhando conhecimento.</span>
+            Front-end Developer at <a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord</a>
+            <span>Coding ideas and sharing knowledge.</span>
           </p>
         </Content>
       </HomeContainer>

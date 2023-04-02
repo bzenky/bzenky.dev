@@ -10,12 +10,12 @@ export function Header() {
             'name': 'home',
         },
         {
-            'url': '/sobre',
-            'name': 'sobre',
+            'url': '/about',
+            'name': 'about',
         },
         {
-            'url': '/projetos',
-            'name': 'projetos',
+            'url': '/projects',
+            'name': 'projects',
         },
     ]
 
