@@ -27,8 +27,8 @@ export default function About() {
                         <Image src={profilePhoto} alt="Zenky's Profile Photo" priority />
 
                         <BioWrapper>
-                            <p>Hello there, I'm Bruno Zenky, a finance, exact and technology enthusiast.</p>
-                            <p>I'm a developer focused on JavaScript - React/React Native/Next/Node. I currently work as a front-end developer at <strong><a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord Tecnologia</a></strong>.</p>
+                            <p>Hello there, I&apos;m Bruno Zenky, a finance, exact and technology enthusiast.</p>
+                            <p>I&apos;m a developer focused on JavaScript - React/React Native/Next/Node. I currently work as a front-end developer at <strong><a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord Tecnologia</a></strong>.</p>
                             <p>I keep studying beyond the front-end area to become a more complete professional. Last but not least, I can say that all the focus and desire from the beginning of the journey still lasts every day.
                             </p>
                         </BioWrapper>
