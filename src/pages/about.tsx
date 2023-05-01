@@ -38,7 +38,7 @@ export default function About() {
                         <ExperiencesHeader>
                             <h2>Professional Background</h2>
 
-                            <a href="/bzenky.pdf" target="_blank" download="CV - Bruno Zenky G Asano">
+                            <a href="/bzenky.pdf" target="_blank" download="Resume - Bruno Zenky G Asano">
                                 Download Resume
                             </a>
                         </ExperiencesHeader>
