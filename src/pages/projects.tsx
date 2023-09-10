@@ -24,7 +24,7 @@ export default function Projects() {
                     <ProjectCard
                         name="Pomo Pomodoro"
                         description="Pomodoro with lofi radio and some configurations"
-                        url="https://www.pomopomodoro.tech"
+                        url="https://www.pomopomodoro.com"
                         icon={clock}
                     />
 
