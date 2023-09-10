@@ -24,13 +24,11 @@ export default function About() {
                 <h1>About</h1>
                 <Main>
                     <PhotoBioWrapper>
-                        <Image src={profilePhoto} alt="Zenky's Profile Photo" priority />
+                        <Image src={profilePhoto} alt="Zenky's Profile Photo" priority width={326} height={326} />
 
                         <BioWrapper>
-                            <p>Hello there, I&apos;m Bruno Zenky, a finance, exact and technology enthusiast.</p>
-                            <p>I&apos;m a developer focused on JavaScript - React/React Native/Next/Node. I currently work as a front-end developer at <strong><a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord Tecnologia</a></strong>.</p>
-                            <p>I keep studying beyond the front-end area to become a more complete professional. Last but not least, I can say that all the focus and desire from the beginning of the journey still lasts every day.
-                            </p>
+                            <p>Hello there! I am a passionate Front-End Developer with 2+ years of experience in creating engaging and functional interfaces, driven by the latest technologies. Also a finance, exacts and technology enthusiast.</p>
+                            <p>In addition to my technical skills, I have a keen eye for detail and a passion for intuitive design. I&apos;m always seeking ways to enhance the user interface and improve how users interact with the products I develop, with a special focus on applying React and Next.js best practices.</p>
                         </BioWrapper>
                     </PhotoBioWrapper>
 
@@ -51,13 +49,13 @@ export default function About() {
                             </div>
                             <span>nov 2021 - moment</span>
                             <ul>
-                                <li>Website maintenance and optimization;</li>
-                                <li>Activities related to support;</li>
-                                <li>Development/Redesign of pages according to protype (Figma);</li>
-                                <li>New features development;</li>
-                                <li>Recreation of existing features in React.</li>
+                                <li>Recreation and maintenance of existing features for React.</li>
+                                <li>Active participation in the development, redesign, and creation of pages based on prototypes (Figma).</li>
+                                <li>Development of new functionalities and features for the websites, involving collaboration with design and development teams to implement solutions </li>that enhance the user experience and meet project-specific requirements.
+                                <li>Ongoing maintenance of existing websites, applying updates, fixes, and enhancements to ensure optimal functionality and performance.</li>
+                                <li>Activities related to support tickets, comprehending and resolving user requests accurately and promptly.</li>
                             </ul>
-                            <span>Stacks: React · TypeScript · JavaScript · JQuery ·  SASS · Twig</span>
+                            <span>Stacks: React · TypeScript · JavaScript · JQuery ·  SASS · Twig · PHP</span>
                         </CareerItemWrapper>
 
                         <CareerItemWrapper>
