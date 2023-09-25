@@ -14,7 +14,7 @@ export default function App() {
         <Content>
           <h1>Zenky</h1>
           <p>
-            Front-end Developer at <a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord</a>
+            Front-end Developer
             <span>Coding ideas and sharing knowledge.</span>
           </p>
         </Content>

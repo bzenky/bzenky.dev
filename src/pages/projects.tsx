@@ -48,6 +48,13 @@ export default function Projects() {
                         url="https://www.pokedex.bzenky.dev/"
                         icon={star}
                     />
+
+                    <ProjectCard
+                        name="Pokedex"
+                        description="Simple Pokédex with the first pokémon generation"
+                        url="https://www.pokedex.bzenky.dev/"
+                        icon={star}
+                    />
                 </ProjectsWrapper>
             </ProjectContainer>
         </>

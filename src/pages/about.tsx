@@ -47,7 +47,7 @@ export default function About() {
                                 <a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord</a>
                                 <span> · Rio do Sul - SC</span>
                             </div>
-                            <span>nov 2021 - moment</span>
+                            <span>nov 2021 - sep 2023</span>
                             <ul>
                                 <li>Recreation and maintenance of existing features for React.</li>
                                 <li>Active participation in the development, redesign, and creation of pages based on prototypes (Figma).</li>
