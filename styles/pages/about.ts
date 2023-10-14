@@ -100,6 +100,17 @@ export const CareerItemWrapper = styled.div`
     color: #B2A7B8;
     font-size: 1rem;
 
+    a {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        color: #FFF;
+        transition: color 0.2s ease-in-out;
+
+        &:hover {
+            color: #3FFCE8;
+        }
+    }
+
     &:last-child {
         padding-bottom: 32px;
     }
@@ -111,17 +122,6 @@ export const CareerItemWrapper = styled.div`
 
     > div {
         line-height: 2;
-
-        a {
-        text-decoration: underline;
-        text-underline-offset: 2px;
-        color: #FFF;
-        transition: color 0.2s ease-in-out;
-
-        &:hover {
-            color: #3FFCE8;
-        }
-    }
     }
 
     > ul {

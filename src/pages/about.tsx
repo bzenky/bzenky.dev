@@ -42,6 +42,20 @@ export default function About() {
                         </ExperiencesHeader>
 
                         <CareerItemWrapper>
+                            <h3>Developer</h3>
+                            <div>
+                                <a href="https://smtsolucoes.com.br/" target="_blank" rel="noreferrer">SMT</a>
+                                <span> · Rio do Sul - SC</span>
+                            </div>
+                            <span>oct 2023 - moment</span>
+                            <ul>
+                                <li>Participation in the <a href="https://www.playbookux.com/" target="_blank" rel="noreferrer">PlaybookUX</a> project;</li>
+                                <li>Continuous maintenance of existing websites, applying updates, fixes and improvements to ensure optimal functionality and performance;</li>
+                            </ul>
+                            <span>Stacks: React · JavaScript · Ruby on Rails · SASS</span>
+                        </CareerItemWrapper>
+
+                        <CareerItemWrapper>
                             <h3>Front-end Developer</h3>
                             <div>
                                 <a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord</a>
