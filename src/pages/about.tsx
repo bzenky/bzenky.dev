@@ -45,7 +45,7 @@ export default function About() {
                             <h3>Developer</h3>
                             <div>
                                 <a href="https://smtsolucoes.com.br/" target="_blank" rel="noreferrer">SMT</a>
-                                <span> · Rio do Sul - SC</span>
+                                <span> · São Paulo - SP</span>
                             </div>
                             <span>oct 2023 - moment</span>
                             <ul>
