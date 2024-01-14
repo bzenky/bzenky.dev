@@ -50,6 +50,7 @@ export default function About() {
                             <span>oct 2023 - moment</span>
                             <ul>
                                 <li>Participation in the <a href="https://www.playbookux.com/" target="_blank" rel="noreferrer">PlaybookUX</a> project;</li>
+                                <li>Development of new functionalities and features for the websites, to implement solutions that enhance the user experience and meet project-specific requirements.</li>
                                 <li>Continuous maintenance of existing websites, applying updates, fixes and improvements to ensure optimal functionality and performance;</li>
                             </ul>
                             <span>Stacks: React · JavaScript · Ruby on Rails · SASS</span>
@@ -65,7 +66,7 @@ export default function About() {
                             <ul>
                                 <li>Recreation and maintenance of existing features for React.</li>
                                 <li>Active participation in the development, redesign, and creation of pages based on prototypes (Figma).</li>
-                                <li>Development of new functionalities and features for the websites, involving collaboration with design and development teams to implement solutions </li>that enhance the user experience and meet project-specific requirements.
+                                <li>Development of new functionalities and features for the websites, involving collaboration with design and development teams to implement solutions that enhance the user experience and meet project-specific requirements.</li>
                                 <li>Ongoing maintenance of existing websites, applying updates, fixes, and enhancements to ensure optimal functionality and performance.</li>
                                 <li>Activities related to support tickets, comprehending and resolving user requests accurately and promptly.</li>
                             </ul>
