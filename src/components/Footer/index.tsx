@@ -22,10 +22,6 @@ export function Footer() {
                     <span>youtube</span>
                     <YoutubeLogo size={24} color="#FFF" />
                 </a>
-                <a href="https://www.instagram.com/bzenky" target="_blank" rel="noreferrer">
-                    <span>instagram</span>
-                    <InstagramLogo size={24} color="#FFF" />
-                </a>
             </Nav>
         </FooterContainer>
     )
