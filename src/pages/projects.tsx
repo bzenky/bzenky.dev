@@ -23,7 +23,7 @@ export default function Projects() {
                 <ProjectsWrapper>
                     <ProjectCard
                         name="Pomo Pomodoro"
-                        description="Pomodoro with lofi radio and some configurations"
+                        description="Recreating this project with next 14"
                         url="https://www.pomopomodoro.com"
                         icon={clock}
                     />
