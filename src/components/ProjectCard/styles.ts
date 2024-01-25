@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 export const ProjectCardContainer = styled.a`
     width: 180px;
-    height: 200px;
+    height: 220px;
     padding: 16px 12px;
     border-radius: 8px;
     box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
@@ -33,7 +33,7 @@ export const TitleWrapper = styled.div`
     align-items: center;
     gap: 4px;
     height: 54px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 
     h3 {
         font-size: 1.125rem;
@@ -44,4 +44,9 @@ export const TitleWrapper = styled.div`
 export const IconAnimation = styled(Lottie)`
     width: 40px;
     height: 40px;
+
+    & > svg {
+        width: 40px;
+        height: 40px;
+    }
 `
