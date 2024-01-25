@@ -23,28 +23,35 @@ export default function Projects() {
                 <ProjectsWrapper>
                     <ProjectCard
                         name="Pomo Pomodoro"
-                        description="Recreating this project with next 14"
+                        description="A Pomodoro with controls. Recreating this project with next 14"
                         url="https://www.pomopomodoro.com"
                         icon={clock}
                     />
 
                     <ProjectCard
                         name="Todo List"
-                        description="Application to manage your tasks"
+                        description="A nice application to manage your tasks, with freedom to control your items"
                         url="https://www.todolist.bzenky.dev"
                         icon={book}
                     />
 
                     <ProjectCard
-                        name="Yotei Theme"
-                        description="VS Code Theme inspired by a sunset"
+                        name="Yotei - VS Code"
+                        description="A dark theme inspired by a purple/red sky at dawn."
                         url="https://marketplace.visualstudio.com/items?itemName=Zenky.yotei"
                         icon={eye}
                     />
 
                     <ProjectCard
+                        name="Yotei - Google Chrome"
+                        description="A dark theme inspired by a purple/red sky at dawn."
+                        url="https://chromewebstore.google.com/detail/yotei/joafbehmencjimojljfchmmenokidfef"
+                        icon={eye}
+                    />
+
+                    <ProjectCard
                         name="Pokedex"
-                        description="Simple Pokédex with the first pokémon generation"
+                        description="A simple Pokédex with the first pokémon generation"
                         url="https://www.pokedex.bzenky.dev/"
                         icon={star}
                     />
