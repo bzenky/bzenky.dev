@@ -10,6 +10,7 @@ import {
     PhotoBioWrapper
 } from "../../styles/pages/about"
 import profilePhoto from '../assets/zenky.png'
+import { dateDifferenceStartEndJob } from "../utils/dateDifferenceStartEndJob"
 
 export default function About() {
     return (
@@ -47,7 +48,9 @@ export default function About() {
                                 <a href="https://smtsolucoes.com.br/" target="_blank" rel="noreferrer">SMT</a>
                                 <span> · São Paulo - SP</span>
                             </div>
-                            <span>oct 2023 - moment</span>
+                            <span>
+                                oct 2023 - moment • {dateDifferenceStartEndJob('2023, 10, 02', 'moment')}
+                            </span>
                             <ul>
                                 <li>Participation in the <a href="https://www.playbookux.com/" target="_blank" rel="noreferrer">PlaybookUX</a> project;</li>
                                 <li>Development of new functionalities and features for the websites, to implement solutions that enhance the user experience and meet project-specific requirements.</li>
@@ -62,7 +65,9 @@ export default function About() {
                                 <a href="https://www.magazord.com.br" target="_blank" rel="noreferrer">Magazord</a>
                                 <span> · Rio do Sul - SC</span>
                             </div>
-                            <span>nov 2021 - sep 2023</span>
+                            <span>
+                                nov 2021 - sep 2023 • {dateDifferenceStartEndJob('2021, 11, 03', '2023, 09, 22')}
+                            </span>
                             <ul>
                                 <li>Recreation and maintenance of existing features for React.</li>
                                 <li>Active participation in the development, redesign, and creation of pages based on prototypes (Figma).</li>
@@ -79,7 +84,9 @@ export default function About() {
                                 <a href="https://www.rotaseguros.com.br" target="_blank" rel="noreferrer">Rota Seguros</a>
                                 <span> · Belo Horizonte - MG</span>
                             </div>
-                            <span>ago 2021 - oct 2021</span>
+                            <span>
+                                ago 2021 - oct 2021 • {dateDifferenceStartEndJob('2021, 08, 10', '2021, 10, 29')}
+                            </span>
                             <ul>
                                 <li>Website maintenance and optimization;</li>
                                 <li>Creation of internal systems;</li>
