@@ -96,6 +96,45 @@ export default function About() {
                             <span>Stacks: CSS · JavaScript · HTML</span>
                         </CareerItemWrapper>
                     </ExperiencesContainer>
+
+                    <ExperiencesContainer>
+                        <ExperiencesHeader>
+                            <h2>Education Background</h2>
+                        </ExperiencesHeader>
+
+                        <CareerItemWrapper>
+                            <h3>Technologist - System Analysis and Development</h3>
+                            <div>
+                                <a href="https://www.unopar.com.br/" target="_blank" rel="noreferrer">UNOPAR</a>
+                                <span> · Online degree</span>
+                            </div>
+                            <span>
+                                2021 - 2022
+                            </span>
+                        </CareerItemWrapper>
+
+                        <CareerItemWrapper>
+                            <h3>MBA in Controlling and Finance</h3>
+                            <div>
+                                <a href="https://baraodemaua.br/" target="_blank" rel="noreferrer">Centro Universitário Barão de Mauá</a>
+                                <span> · Online degree</span>
+                            </div>
+                            <span>
+                                2018 - 2019
+                            </span>
+                        </CareerItemWrapper>
+
+                        <CareerItemWrapper>
+                            <h3>Bachelor in Accounting</h3>
+                            <div>
+                                <a href="https://uenp.edu.br/" target="_blank" rel="noreferrer">UENP</a>
+                                <span> · Cornélio Procópio - PR</span>
+                            </div>
+                            <span>
+                                2014 - 2017
+                            </span>
+                        </CareerItemWrapper>
+                    </ExperiencesContainer>
                 </Main>
             </AboutContainer>
         </>
