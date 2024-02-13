@@ -63,7 +63,7 @@ export const BioWrapper = styled.div`
     }
 `
 
-export const ExperienciesContainer = styled.div`
+export const ExperiencesContainer = styled.div`
     max-width: 800px;
     margin: 40px auto 12px;    
 `

@@ -5,7 +5,7 @@ import {
     BioWrapper,
     CareerItemWrapper,
     ExperiencesHeader,
-    ExperienciesContainer,
+    ExperiencesContainer,
     Main,
     PhotoBioWrapper
 } from "../../styles/pages/about"
@@ -33,7 +33,7 @@ export default function About() {
                         </BioWrapper>
                     </PhotoBioWrapper>
 
-                    <ExperienciesContainer>
+                    <ExperiencesContainer>
                         <ExperiencesHeader>
                             <h2>Professional Background</h2>
 
@@ -95,7 +95,7 @@ export default function About() {
                             </ul>
                             <span>Stacks: CSS · JavaScript · HTML</span>
                         </CareerItemWrapper>
-                    </ExperienciesContainer>
+                    </ExperiencesContainer>
                 </Main>
             </AboutContainer>
         </>
