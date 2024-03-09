@@ -43,7 +43,7 @@ export default function About() {
                         </ExperiencesHeader>
 
                         <CareerItemWrapper>
-                            <h3>Developer</h3>
+                            <h3>Front-end Developer</h3>
                             <div>
                                 <a href="https://smtsolucoes.com.br/" target="_blank" rel="noreferrer">SMT</a>
                                 <span> · São Paulo - SP</span>
@@ -56,7 +56,7 @@ export default function About() {
                                 <li>Development of new functionalities and features for the websites, to implement solutions that enhance the user experience and meet project-specific requirements.</li>
                                 <li>Continuous maintenance of existing websites, applying updates, fixes and improvements to ensure optimal functionality and performance;</li>
                             </ul>
-                            <span>Stacks: React · JavaScript · Ruby on Rails · SASS</span>
+                            <span>Stacks: React · JavaScript · Ruby on Rails · Styled Components · GraphQL · Redux</span>
                         </CareerItemWrapper>
 
                         <CareerItemWrapper>
