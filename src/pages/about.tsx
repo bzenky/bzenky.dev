@@ -52,9 +52,9 @@ export default function About() {
                                 oct 2023 - moment • {dateDifferenceStartEndJob('2023, 10, 02', 'moment')}
                             </span>
                             <ul>
-                                <li>Participation in the <a href="https://www.playbookux.com/" target="_blank" rel="noreferrer">PlaybookUX</a> project;</li>
-                                <li>Development of new functionalities and features for the websites, to implement solutions that enhance the user experience and meet project-specific requirements.</li>
-                                <li>Continuous maintenance of existing websites, applying updates, fixes and improvements to ensure optimal functionality and performance;</li>
+                                <li>Active involvement in the <a href="https://www.playbookux.com/" target="_blank" rel="noreferrer">PlaybookUX</a> project;</li>
+                                <li>Development of new website features and functionalities, focusing on improving user experience and meeting project-specific requirements through effective implementation of solutions.</li>
+                                <li>Ongoing maintenance of existing websites, including applying updates, implementing fixes, and making improvements to ensure optimal functionality and performance.</li>
                             </ul>
                             <span>Stacks: React · JavaScript · Ruby on Rails · Styled Components · GraphQL · Redux</span>
                         </CareerItemWrapper>
@@ -69,11 +69,11 @@ export default function About() {
                                 nov 2021 - sep 2023 • {dateDifferenceStartEndJob('2021, 11, 03', '2023, 09, 22')}
                             </span>
                             <ul>
-                                <li>Recreation and maintenance of existing features for React.</li>
-                                <li>Active participation in the development, redesign, and creation of pages based on prototypes (Figma).</li>
-                                <li>Development of new functionalities and features for the websites, involving collaboration with design and development teams to implement solutions that enhance the user experience and meet project-specific requirements.</li>
-                                <li>Ongoing maintenance of existing websites, applying updates, fixes, and enhancements to ensure optimal functionality and performance.</li>
-                                <li>Activities related to support tickets, comprehending and resolving user requests accurately and promptly.</li>
+                                <li>Recreated and maintained existing features in React.</li>
+                                <li>Actively participated in the development, redesign, and creation of pages based on Figma prototypes.</li>
+                                <li>Developed new functionalities and features for websites, collaborating with design and development teams to implement solutions that improve user experience and meet project-specific requirements.</li>
+                                <li>Conducted ongoing maintenance of existing websites, including applying updates, fixes, and enhancements to ensure optimal functionality and performance.</li>
+                                <li>Handled support tickets, comprehended and promptly resolved user requests accurately.</li>
                             </ul>
                             <span>Stacks: React · TypeScript · JavaScript · JQuery ·  SASS · Twig · PHP</span>
                         </CareerItemWrapper>
@@ -88,10 +88,9 @@ export default function About() {
                                 ago 2021 - oct 2021 • {dateDifferenceStartEndJob('2021, 08, 10', '2021, 10, 29')}
                             </span>
                             <ul>
-                                <li>Website maintenance and optimization;</li>
-                                <li>Creation of internal systems;</li>
-                                <li>Hosting server management;</li>
-                                <li>Guarantee of improved usability and user experience on mobile and desktop devices.</li>
+                                <li>Developed websites and landing pages.;</li>
+                                <li>Maintained and optimized websites for improved performance;</li>
+                                <li>Ensured enhanced usability and user experience across mobile and desktop platforms..</li>
                             </ul>
                             <span>Stacks: CSS · JavaScript · HTML</span>
                         </CareerItemWrapper>

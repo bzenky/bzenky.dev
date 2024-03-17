@@ -91,6 +91,10 @@ export const ExperiencesHeader = styled.div`
         &:hover {
             background: #6117c7;
         }
+
+        &:active {
+            background: #4f12a3;
+        }
     }
 `
 
