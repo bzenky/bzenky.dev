@@ -56,7 +56,7 @@ export default function About() {
                                 <li>Development of new website features and functionalities, focusing on improving user experience and meeting project-specific requirements through effective implementation of solutions.</li>
                                 <li>Ongoing maintenance of existing websites, including applying updates, implementing fixes, and making improvements to ensure optimal functionality and performance.</li>
                             </ul>
-                            <span>Stacks: React · JavaScript · Ruby on Rails · Styled Components · GraphQL · Redux</span>
+                            <span>Stacks: React · TypeScript · JavaScript · Ruby on Rails · Styled Components · GraphQL · Redux · Cypress</span>
                         </CareerItemWrapper>
 
                         <CareerItemWrapper>
