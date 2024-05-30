@@ -44,16 +44,6 @@ export const BioWrapper = styled.div`
         & + p {
             margin-top: 8px;
         }
-
-        strong,
-        span,
-        a {
-            color: #FFF;
-        }
-
-        a:hover {
-            color: #3FFCE8;
-        }
     }    
 
     @media only screen and (max-width: 768px) {

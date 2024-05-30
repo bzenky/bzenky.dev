@@ -16,18 +16,6 @@ export const HomeContainer = styled.div`
         margin: 16px 0;
         line-height: 1.7;
 
-        a {
-            text-decoration: underline;
-            text-underline-offset: 6px;
-            color: inherit;
-
-            transition: color 0.3s ease-in-out;
-
-            &:hover {
-                color: #3FFCE8;
-            }
-        }
-
         span {
             display: block;
             margin-top: 16px;
