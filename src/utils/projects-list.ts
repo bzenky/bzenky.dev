@@ -6,26 +6,20 @@ import star from '../assets/star.json'
 export const projects = [
   {
     name: "Pomo Pomodoro",
-    description: "A Pomodoro with controls. Recreating this project with next 14",
+    description: "Enhance your productivity with this intuitive and appealing Pomodoro timer",
     url: "https://www.pomopomodoro.com",
     icon: clock
   },
   {
     name: "Todo List",
-    description: "A nice application to manage your tasks, with freedom to control your items",
+    description: "A powerful task management application that gives you complete control over your items.",
     url: "https://www.todolist.bzenky.dev",
     icon: book,
   },
   {
-    name: "Yotei - VS Code",
-    description: "A dark theme inspired by a purple/red sky at dawn.",
-    url: "https://marketplace.visualstudio.com/items?itemName:Zenky.yotei",
-    icon: eye,
-  },
-  {
-    name: "Yotei - Google Chrome",
-    description: "A dark theme inspired by a purple/red sky at dawn.",
-    url: "https://chromewebstore.google.com/detail/yotei/joafbehmencjimojljfchmmenokidfef",
+    name: "Yotei Theme",
+    description: "A dark theme for some apps inspired by a purple/red sky at dawn.",
+    url: "https://github.com/bzenky/yotei",
     icon: eye,
   },
   {
