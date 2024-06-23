@@ -1,5 +1,4 @@
 import Head from "next/head"
-import Image from "next/image"
 import {
     AboutContainer,
     BioWrapper,
@@ -7,9 +6,7 @@ import {
     ExperiencesHeader,
     ExperiencesContainer,
     Main,
-    PhotoBioWrapper
 } from "../../styles/pages/about"
-import profilePhoto from '../assets/zenky.png'
 import { dateDifferenceStartEndJob } from "../utils/dateDifferenceStartEndJob"
 
 export default function About() {
@@ -24,14 +21,12 @@ export default function About() {
             <AboutContainer>
                 <h1>About</h1>
                 <Main>
-                    <PhotoBioWrapper>
-                        <Image src={profilePhoto} alt="Zenky's Profile Photo" priority width={326} height={326} />
-
-                        <BioWrapper>
-                            <p>Hello there! I am a passionate Front-End Developer with 2+ years of experience in creating engaging and functional interfaces, driven by the latest technologies. Also a finance, exacts and technology enthusiast.</p>
-                            <p>In addition to my technical skills, I have a keen eye for detail and a passion for intuitive design. I&apos;m always seeking ways to enhance the user interface and improve how users interact with the products I develop, with a special focus on applying React and Next.js best practices.</p>
-                        </BioWrapper>
-                    </PhotoBioWrapper>
+                    <BioWrapper>
+                        <h2>Hello there !</h2>
+                        <p>I am a mid-level front-end developer and I develop applications by creating engaging and functional interfaces, powered by the latest technologies such as JavaScript frameworks: React and Next, as well as HTML, CSS, and some back-end programming languages.</p>
+                        <p>I have been working in agile environments, using the Scrum methodology, collaborating with multidisciplinary teams and also working together with other teams. Currently, I am developing solutions for an international project that offers a product related to quantitative and qualitative research.</p>
+                        <p>With experience in consulting firms as well as product-based companies, I have skills in problem-solving, teamwork, and innovation, acquired through working with different teams and projects.</p>
+                    </BioWrapper>
 
                     <ExperiencesContainer>
                         <ExperiencesHeader>

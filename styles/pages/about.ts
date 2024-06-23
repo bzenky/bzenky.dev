@@ -20,23 +20,12 @@ export const Main = styled.main`
     }
 `
 
-export const PhotoBioWrapper = styled.div`
-    display: flex;
-    gap: 24px;
-
-    img {
-        max-width: 326px;
-        border-radius: 8px;
-    }
-
-    @media only screen and (max-width: 768px) {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-`
-
 export const BioWrapper = styled.div`
     line-height: 1.8;
+
+    h2 {
+        color: #C1B9C6;
+    }
 
     p {
         color: #B2A7B8;
