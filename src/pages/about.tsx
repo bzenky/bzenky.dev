@@ -8,7 +8,7 @@ import {
   Main,
 } from "../../styles/pages/about";
 import { dateDifferenceStartEndJob } from "../utils/dateDifferenceStartEndJob";
-import { Download, DownloadSimple, Link } from "phosphor-react";
+import { DownloadSimple, Link } from "phosphor-react";
 
 export default function About() {
   return (
@@ -80,11 +80,11 @@ export default function About() {
               <h3>Front-end Developer</h3>
               <div>
                 <a
-                  href="https://smtsolucoes.com.br/"
+                  href="https://www.smtcode.com/"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  SMT
+                  SMT Code
                 </a>
                 <span> · São Paulo - SP</span>
               </div>
@@ -118,7 +118,7 @@ export default function About() {
               </ul>
               <span>
                 Stacks: React · TypeScript · JavaScript · Ruby on Rails · Styled
-                Components · GraphQL · Redux · Cypress
+                Components · GraphQL · Redux · Cypress · Node · AWS · Sentry
               </span>
             </CareerItemWrapper>
 
@@ -130,7 +130,7 @@ export default function About() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Magazord
+                  Magazord Digital Commerce
                 </a>
                 <span> · Rio do Sul - SC</span>
               </div>
