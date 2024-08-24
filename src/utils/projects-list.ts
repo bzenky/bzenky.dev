@@ -14,14 +14,13 @@ export const projects = [
   {
     name: "Todo List",
     description:
-      "A powerful task management application that gives you complete control over your items.",
+      "A powerful task management tool that gives you complete control over your items",
     url: "https://www.todolist.bzenky.dev",
     icon: book,
   },
   {
     name: "Yotei Theme",
-    description:
-      "A dark theme for some apps inspired by a purple/red sky at dawn.",
+    description: "A dark theme for apps inspired by a purple/red sky at dawn",
     url: "https://github.com/bzenky/yotei",
     icon: eye,
   },
