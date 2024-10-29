@@ -31,23 +31,19 @@ export default function About() {
           <BioWrapper>
             <h2>Hello there !</h2>
             <p>
-              I am a mid-level front-end developer and I develop applications by
-              creating engaging and functional interfaces, powered by the latest
-              technologies such as JavaScript frameworks: React and Next, as
-              well as HTML, CSS, and some back-end programming languages.
+              I am a front-end developer based in Brazil with over three years of experience building dynamic, 
+              user-friendly interfaces using modern technologies such as React, Next.js, HTML, and CSS, 
+              complemented by some back-end programming skills.
             </p>
             <p>
-              I have been working in agile environments, using the Scrum
-              methodology, collaborating with multidisciplinary teams and also
-              working together with other teams. Currently, I am developing
-              solutions for an international project that offers a product
-              related to quantitative and qualitative research.
+              I thrive in agile environments, following Scrum methodologies, and enjoy collaborating with 
+              multidisciplinary teams. Currently, I’m contributing to an international project focused 
+              on delivering innovative solutions for quantitative and qualitative research.
             </p>
             <p>
-              With experience in consulting firms as well as product-based
-              companies, I have skills in problem-solving, teamwork, and
-              innovation, acquired through working with different teams and
-              projects.
+              With experience in both consulting firms and product-based companies, 
+              I bring strong problem-solving skills, teamwork, and a passion for innovation, 
+              shaped by diverse projects and team collaborations.
             </p>
           </BioWrapper>
 
