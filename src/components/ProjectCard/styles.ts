@@ -1,7 +1,9 @@
 import Lottie from 'lottie-react'
 import styled from "styled-components"
 
-export const ProjectCardContainer = styled.a`
+interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+
+export const ProjectCardContainer = styled.a<LinkProps>`
     width: 180px;
     height: 220px;
     padding: 16px 12px;
