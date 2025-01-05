@@ -1,6 +1,12 @@
+import { Metadata } from "next";
 import { Header } from "../../components/header";
 import { Education } from "./_components/education";
 import { Experiences } from "./_components/experiences";
+
+export const metadata: Metadata = {
+  title: "About | Bruno Asano",
+  description: "My personal website, where I share my thoughts and experiences as a software developer.",
+};
 
 export default function About() {
   return (

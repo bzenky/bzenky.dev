@@ -1,4 +1,10 @@
+import { Metadata } from "next";
 import { Header } from "../../components/header";
+
+export const metadata: Metadata = {
+  title: "Projects | Bruno Asano",
+  description: "My personal website, where I share my thoughts and experiences as a software developer.",
+};
 
 export default function Projects() {
   return (
