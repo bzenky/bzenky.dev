@@ -3,8 +3,8 @@ import { dateDifferenceStartEndJob } from "../_helpers/date-calc";
 
 export default function About() {
   return (
-    <div>
-      <div className="flex flex-col items-center justify-items-center sm:p-6 font-[family-name:var(--font-geist-sans)]">
+    <div className="px-6">
+      <div className="flex flex-col items-center justify-items-center p-6 font-[family-name:var(--font-geist-sans)]">
         <Header />
       </div>
 
