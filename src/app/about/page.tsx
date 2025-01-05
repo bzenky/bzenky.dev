@@ -3,7 +3,7 @@ import { dateDifferenceStartEndJob } from "../_helpers/date-calc";
 
 export default function About() {
   return (
-    <div className="px-6">
+    <div className="px-6 pb-6">
       <div className="flex flex-col items-center justify-items-center p-6 font-[family-name:var(--font-geist-sans)]">
         <Header />
       </div>
@@ -14,8 +14,8 @@ export default function About() {
         <div className="flex flex-col gap-2">
           <p>
             I am a software developer based in Brazil with over three years of experience building dynamic,
-            user-friendly interfaces using modern technologies such as React, Next.js, HTML, and CSS,
-            complemented by some back-end programming skills.
+            user-friendly interfaces using modern technologies such as React, HTML, and CSS,
+            complemented by some back-end programming skills, such as Node and Ruby on Rails.
           </p>
           <p>
             I thrive in agile environments, following Scrum methodologies, and enjoy collaborating with
@@ -74,7 +74,7 @@ export default function About() {
             >
               PlaybookUX
             </a>{" "}
-            project;
+            project.
           </li>
           <li>
             Development of new website features and functionalities,
@@ -88,9 +88,86 @@ export default function About() {
             optimal functionality and performance.
           </li>
         </ul>
-        <span>
+        <span className="mt-1">
           Stacks: React · TypeScript · JavaScript · Ruby on Rails · Styled
-          Components · GraphQL · Redux · Cypress · Node · AWS · Sentry
+          Components · GraphQL · Redux · Cypress · Node · Nest · AWS · Sentry
+        </span>
+      </div>
+
+      <div className="leading-8">
+        <h3 className="text-sky-50 font-bold mt-6 text-lg">Front-end Developer</h3>
+        <div>
+          <a
+            href="https://www.magazord.com.br"
+            target="_blank"
+            rel="noreferrer"
+            className="text-sky-50 underline underline-offset-4 hover:text-sky-300 transition-colors"
+          >
+            Magazord Digital Commerce
+          </a>
+          <span> · Rio do Sul - SC</span>
+        </div>
+        <span>
+          nov 2021 - sep 2023 •{" "}
+          {dateDifferenceStartEndJob("2021, 11, 03", "2023, 09, 22")}
+        </span>
+        <ul className="list-disc">
+          <li>Recreated and maintained existing features in React.</li>
+          <li>
+            Actively participated in the development, redesign, and
+            creation of pages based on Figma prototypes.
+          </li>
+          <li>
+            Developed new functionalities and features for websites,
+            collaborating with design and development teams to implement
+            solutions that improve user experience and meet
+            project-specific requirements.
+          </li>
+          <li>
+            Conducted ongoing maintenance of existing websites, including
+            applying updates, fixes, and enhancements to ensure optimal
+            functionality and performance.
+          </li>
+          <li>
+            Handled support tickets, comprehended and promptly resolved
+            user requests accurately.
+          </li>
+        </ul>
+        <span className="mt-1">
+          Stacks: React · TypeScript · JavaScript · JQuery · SASS · Twig ·
+          PHP
+        </span>
+      </div>
+
+      <div className="leading-8">
+        <h3 className="text-sky-50 font-bold mt-6 text-lg">Front-end Developer</h3>
+        <div>
+          <a
+            href="https://www.rotaseguros.com.br"
+            target="_blank"
+            rel="noreferrer"
+            className="text-sky-50 underline underline-offset-4 hover:text-sky-300 transition-colors"
+          >
+            Rota Seguros
+          </a>
+          <span> · Belo Horizonte - MG</span>
+        </div>
+        <span>
+          ago 2021 - oct 2021 •{" "}
+          {dateDifferenceStartEndJob("2021, 08, 10", "2021, 10, 29")}
+        </span>
+        <ul className="list-disc">
+          <li>Developed websites and landing pages.;</li>
+          <li>
+            Maintained and optimized websites for improved performance;
+          </li>
+          <li>
+            Ensured enhanced usability and user experience across mobile
+            and desktop platforms..
+          </li>
+        </ul>
+        <span className="mt-1">
+          Stacks: HTML · CSS · JavaScript
         </span>
       </div>
     </div>
