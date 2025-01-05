@@ -1,5 +1,5 @@
-import { Header } from "../_components/header";
-import { dateDifferenceStartEndJob } from "../_helpers/date-calc";
+import { Header } from "../../components/header";
+import { dateDifferenceStartEndJob } from "../../utils/date-calc";
 
 export default function About() {
   return (
