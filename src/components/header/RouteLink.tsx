@@ -15,7 +15,8 @@ export function RouteLink({ href, routeName }: RouteLinkProps) {
   const isCurrent = isHome || isActive;
 
   return (
-    <Link href={href} className={`text-sm hover:text-violet-500 hover:bg-slate-700 transition-all p-2 font-bold ${isCurrent && 'underline text-white'} underline-offset-8 decoration-sky-50 decoration-2`}>
+    <Link 
+    href={href} className={`text-sm hover:text-sky-50 hover:bg-slate-700 transition-all p-2 font-bold ${isCurrent && 'underline text-white drop-shadow-xl'} underline-offset-8 decoration-sky-50 decoration-2 hover:drop-shadow-sm`}>
       {routeName}
     </Link>
   )
