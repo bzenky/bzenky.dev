@@ -17,7 +17,7 @@ const socialMedias = {
 
 export function Footer() {
   return (
-    <div className="flex items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
+    <div className="flex items-center justify-items-center gap-16">
       <SocialMediaLink href={socialMedias.GITHUB.url} name={socialMedias.GITHUB.name} />
       <SocialMediaLink href={socialMedias.LINKEDIN.url} name={socialMedias.LINKEDIN.name} />
       <SocialMediaLink href={socialMedias.YOUTUBE.url} name={socialMedias.YOUTUBE.name} />

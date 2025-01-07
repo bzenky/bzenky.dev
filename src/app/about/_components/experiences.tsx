@@ -19,7 +19,7 @@ export function Experiences() {
         </a>
       </div>
 
-      <div className="leading-8">
+      <div className="leading-8 font-medium">
         <h3 className="text-sky-50 font-bold mt-6 text-lg">Front-end Developer</h3>
         <div>
           <a
@@ -67,7 +67,7 @@ export function Experiences() {
         </span>
       </div>
 
-      <div className="leading-8">
+      <div className="leading-8 font-medium">
         <h3 className="text-sky-50 font-bold mt-6 text-lg">Front-end Developer</h3>
         <div>
           <a
@@ -112,7 +112,7 @@ export function Experiences() {
         </span>
       </div>
 
-      <div className="leading-8">
+      <div className="leading-8 font-medium">
         <h3 className="text-sky-50 font-bold mt-6 text-lg">Front-end Developer</h3>
         <div>
           <a

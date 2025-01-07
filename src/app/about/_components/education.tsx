@@ -3,7 +3,7 @@ export function Education() {
     <div>
       <h2 className="text-violet-500 font-bold text-xl mt-8">Education Background</h2>
 
-      <div className="leading-8">
+      <div className="leading-8 font-medium">
         <h3 className="text-sky-50 font-bold mt-6 text-lg">Technologist - System Analysis and Development</h3>
         <div>
           <a
@@ -19,7 +19,7 @@ export function Education() {
         </div>
       </div>
 
-      <div className="leading-8">
+      <div className="leading-8 font-medium">
         <h3 className="text-sky-50 font-bold mt-6 text-lg">MBA in Controlling and Finance</h3>
         <div>
           <a
@@ -35,7 +35,7 @@ export function Education() {
         </div>
       </div>
 
-      <div className="leading-8">
+      <div className="leading-8 font-medium">
         <h3 className="text-sky-50 font-bold mt-6 text-lg">Bachelor in Accounting</h3>
         <div>
           <a

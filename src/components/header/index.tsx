@@ -17,7 +17,7 @@ const routes = {
 
 export function Header() {
   return (
-    <div className="flex items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
+    <div className="flex items-center justify-items-center gap-16">
       <RouteLink href={routes.HOME.href} routeName={routes.HOME.routeName} />
       <RouteLink href={routes.ABOUT.href} routeName={routes.ABOUT.routeName} />
       <RouteLink href={routes.PROJECTS.href} routeName={routes.PROJECTS.routeName} />
