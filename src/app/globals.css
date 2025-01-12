@@ -12,4 +12,5 @@ body {
   color: var(--text-primary);
   background: var(--background);
   font-family: Raleway, Arial, Helvetica, sans-serif;
+  font-size: 18px;
 }
