@@ -1,26 +1,16 @@
-import { RouteLink } from "./RouteLink";
+'use client';
 
-const routes = {
-  HOME: {
-    href: '/',
-    routeName: 'HOME',
-  },
-  ABOUT: {
-    href: '/about',
-    routeName: 'ABOUT',
-  },
-  PROJECTS: {
-    href: '/projects',
-    routeName: 'PROJECTS',
-  },
-}
+import { DrawerMenu } from "./DrawerMenu";
+import { LinkMenu } from "./LinkMenu";
+
+
 
 export function Header() {
-  return (
-    <div className="flex items-center justify-items-center gap-16">
-      <RouteLink href={routes.HOME.href} routeName={routes.HOME.routeName} />
-      <RouteLink href={routes.ABOUT.href} routeName={routes.ABOUT.routeName} />
-      <RouteLink href={routes.PROJECTS.href} routeName={routes.PROJECTS.routeName} />
-    </div>
-  );
+  const isSmallScreen = window.innerWidth < 720;
+
+  if (isSmallScreen) {
+    return <DrawerMenu />;
+  }
+
+  return <LinkMenu />
 }

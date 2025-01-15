@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <div className="px-6 pb-6">
-      <div className="flex flex-col items-center justify-items-center p-6">
+      <div className="py-6">
         <Header />
       </div>
 

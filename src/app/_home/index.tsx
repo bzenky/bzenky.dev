@@ -4,7 +4,7 @@ import { Header } from "../../components/header";
 export function HomePage() {
   return (
     <div className="min-h-screen flex flex-col px-6">
-      <div className="flex flex-col items-center justify-items-center p-6">
+      <div className="py-6">
         <Header />
       </div>
 
