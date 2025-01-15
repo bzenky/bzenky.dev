@@ -22,8 +22,6 @@ export default async function Blog() {
     },
   );
 
-  console.log('latestBlogPosts', latestBlogPosts);
-
   return (
     <div className="px-6 pb-6">
       <div className="py-6">
