@@ -9,8 +9,9 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { RouteLink } from "./RouteLink"
-import { Menu } from "lucide-react"
+import { ArrowUp, Menu } from "lucide-react"
 import { routes } from "./constants"
+import { socialMedias } from "../footer/constants"
 
 export function DrawerMenu() {
   return (
@@ -32,8 +33,27 @@ export function DrawerMenu() {
         </div>
 
         <DrawerFooter>
+          <div className="flex gap-8 justify-center items-center mb-4">
+            {socialMedias.map((socialMedia) => (
+              <a 
+                href={socialMedia.url}
+                key={socialMedia.name} 
+                target="_blank"
+                title={socialMedia.name}
+              >
+                {socialMedia.icon}  
+              </a>
+            ))}
+          </div>
+
           <DrawerClose>
-            <span>Close</span>
+            <div className="flex items-center justify-end gap-2">
+              <span>
+                Close
+              </span>
+
+              <ArrowUp color="#FFF" />
+            </div>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

@@ -15,9 +15,10 @@ export function Header() {
     })
   }, [])
 
-  if (isSmallScreen) {
-    return <DrawerMenu />;
-  }
+  // This removes the glitch of changing components when the window is being defined
+  if (!window) return null;
+
+  if (isSmallScreen) return <DrawerMenu />
 
   return <LinkMenu />
 }
