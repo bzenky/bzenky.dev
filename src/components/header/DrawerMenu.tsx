@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/drawer"
 import { RouteLink } from "./RouteLink"
 import { Menu } from "lucide-react"
+import { routes } from "./constants"
 
 export function DrawerMenu() {
   return (
@@ -25,10 +26,9 @@ export function DrawerMenu() {
         </DrawerHeader>
 
         <div className="flex flex-col h-full justify-center items-center gap-4">
-          <RouteLink href="/" routeName="Home" style="text-xl" />
-          <RouteLink href="/about" routeName="About" style="text-xl" />
-          <RouteLink href="/projects" routeName="Projects" style="text-xl" />
-          <RouteLink href="/blog" routeName="Blog" style="text-xl" />
+          {routes.map((route) => (
+            <RouteLink key={route.routeName} href={route.href} routeName={route.routeName} />
+          ))}
         </div>
 
         <DrawerFooter>
