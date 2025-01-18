@@ -1,26 +1,27 @@
-import { SocialMediaLink } from "@/app/_home/SocialMediaLink";
+'use client'
 
-const socialMedias = {
-  GITHUB: {
-    name: 'GitHub',
-    url: 'https://github.com/bzenky',
-  },
-  LINKEDIN: {
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/bzenky/',
-  },
-  YOUTUBE: {
-    name: 'Youtube',
-    url: 'https://www.youtube.com/@_zenky',
-  },
-}
+import { SocialMediaLink } from "@/app/_home/SocialMediaLink";
+import { useEffect, useState } from "react";
+import { socialMedias } from "./constants";
 
 export function Footer() {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    setIsSmallScreen(window.innerWidth < 720)
+
+    window.addEventListener('resize', () => {
+      setIsSmallScreen(window.innerWidth < 720)
+    })
+  }, [])
+
+  if (isSmallScreen) return null;
+
   return (
     <div className="flex items-center justify-items-center gap-16">
-      <SocialMediaLink href={socialMedias.GITHUB.url} name={socialMedias.GITHUB.name} />
-      <SocialMediaLink href={socialMedias.LINKEDIN.url} name={socialMedias.LINKEDIN.name} />
-      <SocialMediaLink href={socialMedias.YOUTUBE.url} name={socialMedias.YOUTUBE.name} />
+      {socialMedias.map((socialMedia) => (
+        <SocialMediaLink key={socialMedia.name} href={socialMedia.url} name={socialMedia.name} />
+      ))}
     </div>
   );
 }
