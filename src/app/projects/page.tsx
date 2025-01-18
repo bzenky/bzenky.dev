@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Projects() {
   return (
     <div className="px-6 pb-6">
-      <div className="items-center justify-items-center p-6">
+      <div className="py-6">
         <Header />
       </div>
 
