@@ -2,6 +2,7 @@
 
 import { SocialMediaLink } from "@/app/_home/SocialMediaLink";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react"
 import { socialMedias } from "./constants";
 
 export function Footer() {
@@ -19,10 +20,18 @@ export function Footer() {
   if (typeof(window) === undefined || isSmallScreen) return null; 
 
   if (isSmallScreen === false) return (
-    <div className="flex items-center justify-items-center gap-16">
+    <motion.div 
+      className="flex items-center justify-items-center gap-16"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+          duration: 0.4,
+          scale: { type: "spring", visualDuration: 0.4 },
+      }}  
+    >
       {socialMedias.map((socialMedia) => (
         <SocialMediaLink key={socialMedia.name} href={socialMedia.url} name={socialMedia.name} />
       ))}
-    </div>
+    </motion.div>
   );
 }

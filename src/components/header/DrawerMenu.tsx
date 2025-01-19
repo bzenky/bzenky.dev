@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/drawer"
 import { RouteLink } from "./RouteLink"
 import { ArrowUp, Menu } from "lucide-react"
+import { motion } from "motion/react"
 import { routes } from "./constants"
 import { socialMedias } from "../footer/constants"
 
@@ -17,7 +18,16 @@ export function DrawerMenu() {
   return (
     <Drawer direction="top">
       <DrawerTrigger>
-        <Menu />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+              duration: 0.4,
+              scale: { type: "spring", visualDuration: 0.4 },
+          }}
+        >
+          <Menu />
+        </motion.div>
       </DrawerTrigger>
 
       <DrawerContent>
