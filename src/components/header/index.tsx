@@ -5,7 +5,7 @@ import { DrawerMenu } from "./DrawerMenu";
 import { LinkMenu } from "./LinkMenu";
 
 export function Header() {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     setIsSmallScreen(window.innerWidth < 720)
@@ -16,9 +16,11 @@ export function Header() {
   }, [])
 
   // This removes the glitch of changing components when the window is being defined
-  if (!window) return null;
+  if (typeof(window) === undefined) return null;
 
   if (isSmallScreen) return <DrawerMenu />
 
-  return <LinkMenu />
+  if (isSmallScreen === false) return <LinkMenu />
+
+  return <div className="p-4"  />;
 }
