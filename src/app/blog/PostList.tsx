@@ -10,7 +10,10 @@ export default function PostList({ posts }: PostProps) {
     <div>
       {posts.map((post) => {
         const contentText = post.data.content as unknown as [{ [key: string]: string }];
-        const postTextPreview = contentText.map((content) => content.text).join(" ");
+        const fullPostTextPreview = contentText.map((content) => content.text).join(" ");
+        let postTextPreview = fullPostTextPreview.slice(0, 200);
+
+        if (fullPostTextPreview.length > 200) postTextPreview += '...';
 
         return (
           <div key={post.uid} className="flex flex-col gap-4 py-2">
