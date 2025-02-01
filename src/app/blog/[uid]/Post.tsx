@@ -3,6 +3,7 @@ import { PrismicRichText } from "@prismicio/react";
 import Link from "next/link";
 import Image from "next/image";
 import { BlogDocument } from "../../../../prismicio-types";
+import { format } from "date-fns";
 
 interface PostProps {
   blogPost: BlogDocument;
@@ -21,7 +22,7 @@ export default function Post({ blogPost }: PostProps) {
         <h1 className="text-4xl text-violet-500 font-bold mt-4 font-[family-name:var(--font-spectral)]">{data.title}</h1>
 
         <p className="text-slate-300">
-          {data.published_at}
+          {format(data.published_at as string, 'PP')}
         </p>
 
         {data.post_image && (
