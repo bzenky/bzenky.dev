@@ -8,10 +8,10 @@ export default async function Blog() {
   const latestBlogPosts = await client.getAllByType(
     "blog",
     {
-      fetchOptions: {
-        cache: "no-store",
-        next: { tags: ["prismic", "blog_posts"] },
-      },
+      fetchOptions:
+        process.env.NODE_ENV === 'production'
+          ? { next: { tags: ['prismic'] }, cache: 'force-cache' }
+          : { next: { revalidate: 5 } },
       limit: 3,
       orderings: [
         {
