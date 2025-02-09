@@ -36,7 +36,7 @@ export default function Post({ blogPost }: PostProps) {
         )}
       </div>
 
-      <div className="mt-4 leading-10">
+      <div className="mt-4 leading-9 indent-8">
         <PrismicRichText
           field={data.content}
         />
