@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Raleway, Spectral, Spectral_SC } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { StarsBackground } from "./StarsBackground";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -37,7 +38,8 @@ export default function RootLayout({
       <body
         className={`${raleway.variable} ${spectralSc.variable} ${spectral.variable} antialiased m-auto max-w-3xl`}
       >
-        {children}
+        <StarsBackground />
+        <div className="relative z-10">{children}</div>
         <GoogleAnalytics gaId={googleAnalyticsId} />
       </body>
     </html>
