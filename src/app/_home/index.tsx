@@ -1,5 +1,14 @@
 import { Footer } from "@/components/footer";
 import { Header } from "../../components/header";
+import { TypewriterText } from "./TypewriterText";
+
+const roles = [
+  "Software Developer",
+  "Frontend Developer",
+  "Fullstack Developer",
+  "Web Developer",
+  "Javascript Developer",
+]
 
 export function HomePage() {
   return (
@@ -10,7 +19,7 @@ export function HomePage() {
 
       <div className="flex flex-col flex-1 h-full justify-center px-22">
         <h1 className="text-4xl text-violet-500 font-bold font-[family-name:var(--font-spectral-sc)]">Bruno Zenky Guimarães Asano</h1>
-        <p className="text-lg mt-8 mb-4 text-slate-300 font-semibold">Software Developer</p>
+        <TypewriterText text={roles} />
         <p className="text-lg font-medium">Coding ideas and sharing knowledge</p>
       </div>
 
