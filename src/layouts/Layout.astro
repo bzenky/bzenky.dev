@@ -3,9 +3,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<title>Bruno Asano</title>
 	</head>
 	<body>
 		<slot />
@@ -13,10 +12,26 @@
 </html>
 
 <style>
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+
 	html,
 	body {
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		background: #211925;
+		font-size: 1.125rem;
+		font-weight: 500;
+		font-family: "JetBrains Mono", monospace;
+	}
+
+	@media screen and (max-width: 600px) {
+		html {
+			font-size: 1rem;
+		}
 	}
 </style>

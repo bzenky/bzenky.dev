@@ -1,0 +1,37 @@
+---
+import Caret from "./Caret.astro";
+const { useCaret = false } = Astro.props;
+---
+
+<div id="cli-prefix-container">
+  <span id="cli-prefix"> bzenky@Bruno Asano ~ </span>
+  <span id="dollar-sign">$</span>
+  <span id="command-input">
+    <slot />
+    {Boolean(useCaret) && <Caret />}
+  </span>
+</div>
+
+<style>
+  #cli-prefix-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1ch;
+  }
+
+  #cli-prefix {
+    color: #f7f;
+  }
+
+  #dollar-sign {
+    color: #f8c;
+  }
+
+  #command-input {
+    display: flex;
+    align-items: center;
+    color: #e9e9f4;
+  }
+</style>
