@@ -8,7 +8,7 @@ const { useCaret = false } = Astro.props;
   <span id="dollar-sign">$</span>
   <span id="command-input">
     <slot />
-    {Boolean(useCaret) && <Caret />}
+    {useCaret && <Caret />}
   </span>
 </div>
 
