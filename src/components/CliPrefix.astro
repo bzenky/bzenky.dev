@@ -6,7 +6,7 @@ const { useCaret = false } = Astro.props;
 <div id="cli-prefix-container">
   <span id="cli-prefix"> bzenky@Bruno Asano ~ </span>
   <span id="dollar-sign">$</span>
-  <span id="command-input">
+  <span id="command-input" class={useCaret ? "typeAnimation" : "default"}>
     <slot />
     {useCaret && <Caret />}
   </span>
@@ -32,6 +32,21 @@ const { useCaret = false } = Astro.props;
   #command-input {
     display: flex;
     align-items: center;
-    color: #e9e9f4;
+
+    &.typeAnimation {
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      animation: typeAnimation 1s steps(13, end) forwards;
+    }
+  }
+
+  @keyframes typeAnimation {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 13ch;
+    }
   }
 </style>
