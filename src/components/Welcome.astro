@@ -4,14 +4,13 @@ import SocialLinks from "./SocialLinks.astro";
 import Contact from "./Contact.astro";
 ---
 
-<div id="container">
-	<main>
-		<CliPrefix useCaret={true}>
-			<p>me --help</p>
-		</CliPrefix>
+<main id="container">
+	<CliPrefix useCaret={true}>
+		<p>me --help</p>
+	</CliPrefix>
 
+	<div class="fade-in">
 		<SocialLinks />
-
 		<p>
 			I'm a software developer based in Brazil with over three years of
 			experience building dynamic, user-friendly interfaces using modern
@@ -29,22 +28,48 @@ import Contact from "./Contact.astro";
 			bring strong problem-solving skills, teamwork, and a passion for
 			innovation, shaped by diverse projects and team collaborations.
 		</p>
-
 		<CliPrefix>
 			<p>contact</p>
 		</CliPrefix>
 		<Contact />
-	</main>
-</div>
+	</div>
+</main>
 
 <style>
 	#container {
 		max-width: 80ch;
+		height: 100%;
 		padding: 24px;
+		overflow: hidden;
 	}
 
 	p {
 		line-height: 1.6;
 		color: #e9e9f4;
+	}
+
+	.fade-in {
+		opacity: 0;
+		height: 0;
+		overflow: hidden;
+		animation: fadeIn 1s 1s forwards;
+	}
+
+	@keyframes fadeIn {
+		0% {
+			opacity: 0;
+			height: 0;
+		}
+		100% {
+			opacity: 1;
+			height: 100%;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.fade-in {
+			animation: none;
+			opacity: 1;
+		}
 	}
 </style>
