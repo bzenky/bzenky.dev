@@ -5,81 +5,88 @@ import Contact from "./Contact.astro";
 ---
 
 <main id="container">
-	<CliPrefix useCaret={true}>
-		<p>me --help</p>
-	</CliPrefix>
+    <CliPrefix useCaret={true}>
+        <p>me --help</p>
+    </CliPrefix>
 
-	<div class="fade-in">
-		<div class="shade" />
-		<SocialLinks />
-		<p>
-			I'm a frontend-focused software developer based in Brazil, specializing in
-			building modern, scalable, and user-centered interfaces with React and
-			TypeScript. I also have experience working across the stack using Node.js and
-			Ruby on Rails.
-		</p>
-		<p>
-			I enjoy working in agile environments and collaborating closely with designers,
-			product managers, and other engineers to turn ideas into reliable, high-quality
-			products. Currently, I contribute to an international SaaS platform focused on
-			qualitative and quantitative research.
-		</p>
-		<p>
-			My background spans both consulting and product-driven teams, which helped me
-			develop strong problem-solving skills, adaptability, and a practical mindset
-			when building software that delivers real value to users.
-		</p>
-		<CliPrefix>
-			<p>contact</p>
-		</CliPrefix>
-		<Contact />
-	</div>
+    <div class="fade-in">
+        <div class="shade"></div>
+        <SocialLinks />
+        <p>
+            I'm a software developer from Brazil with over five years of
+            experience building things for the web. React and JavaScript are
+            where I've spent most of my time, but I'm also comfortable working
+            across the stack with Node.js and Ruby on Rails.
+        </p>
+
+        <p>
+            Most of what I enjoy about software development comes down to
+            solving problems. Sometimes that's building something new, sometimes
+            it's improving an existing feature, tracking down a weird production
+            issue, or jumping into another part of the stack to understand
+            what's actually going on.
+        </p>
+
+        <p>
+            Today, I work on an international SaaS product for qualitative and
+            quantitative research. Along the way, I've worked with both
+            consulting and product teams, collaborated with people from
+            different areas, and learned that good software is about much more
+            than just writing code. I care about building things that are
+            reliable, maintainable, and useful to the people who actually use
+            them.
+        </p>
+        <CliPrefix>
+            <p>contact</p>
+        </CliPrefix>
+        <Contact />
+    </div>
 </main>
 
 <style>
-	#container {
-		max-width: 80ch;
-		height: 100%;
-		padding: 24px;
-		overflow: hidden;
-	}
+    #container {
+        max-width: 80ch;
+        height: 100%;
+        padding: 24px;
+        overflow: hidden;
+    }
 
-	.shade {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		background-color: #211925;
-		animation: fallDown 1.8s 1.5s forwards;
-	}
+    .shade {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #211925;
+        animation: fallDown 1.8s 1.5s forwards;
+    }
 
-	p {
-		line-height: 1.6;
-		color: #e9e9f4;
-	}
+    p {
+        line-height: 1.6;
+        color: #e9e9f4;
+    }
 
-	.fade-in {
-		position: relative;
-		overflow: hidden;
-		opacity: 0;
-		height: 100%;
-		animation: fadeIn 1.8s 1.5s forwards;
-	}
+    .fade-in {
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        height: 100%;
+        animation: fadeIn 1.8s 1.5s forwards;
+    }
 
-	@keyframes fadeIn {
-		to {
-			opacity: 1;
-		}
-	}
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
 
-	@keyframes fallDown {
-		to {
-			transform: translateY(100%);
-		}
-	}
+    @keyframes fallDown {
+        to {
+            transform: translateY(100%);
+        }
+    }
 
-	@media (prefers-reduced-motion: reduce) {
-		.fade-in {
-			opacity: 1;
-		}
-	}
+    @media (prefers-reduced-motion: reduce) {
+        .fade-in {
+            opacity: 1;
+        }
+    }
 </style>
