@@ -8,12 +8,28 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content="A simple personal website. Software engineer, developer, frontend lover and technology enthusiast." />
-		<meta 
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<meta name="theme-color" content="#222230" />
+		<script is:inline>
+			(() => {
+				const backgrounds = { yotei: '#222230', midnight: '#120d15', dawn: '#fff7fb' };
+				let theme = 'yotei';
+				try {
+					const saved = localStorage.getItem('yotei-theme');
+					if (Object.hasOwn(backgrounds, saved)) theme = saved;
+				} catch {}
+				document.documentElement.dataset.theme = theme;
+				document.querySelector('meta[name="theme-color"]').content = backgrounds[theme];
+			})();
+		</script>
 		<title>Bruno Asano</title>
 
 		<script
 			is:inline
+			async
 			src="https://www.googletagmanager.com/gtag/js?id=G-YBMX40KKW0"></script>
 		<script is:inline>
 			window.dataLayer = window.dataLayer || [];
@@ -29,27 +45,69 @@
 	</body>
 </html>
 
-<style>
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
+<style is:global>
+	:root {
+		/* Yotei: github.com/bzenky/yotei/blob/master/kitty/yotei.conf */
+		--background: #222230;
+		--surface: #222230;
+		--surface-raised: #282936;
+		--border: #4d4352;
+		--text: #e9e9f4;
+		--muted: #b0abc1;
+		--purple: #de71ff;
+		--pink: #ea51b2;
+		--cyan: #62d6e8;
+		--mint: #a1efe4;
+		--selection: #44475a;
+		--selection-text: #f2f2f2;
+		--cursor: #e9e9f4;
+		--cursor-text: #222230;
+		color-scheme: dark;
+		font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+		font-synthesis: none;
+		background: var(--background);
+		color: var(--text);
 	}
 
-	html,
-	body {
-		padding: 0;
-		margin: 0;
-		background: #211925;
-		font-size: 1.125rem;
-		font-weight: 500;
-		font-family: "JetBrains Mono", monospace;
+	:root[data-theme="midnight"] {
+		--background: #120d15;
+		--surface: #120d15;
+		--surface-raised: #0f0a12;
+		--border: #2f2635;
+		--cursor-text: #120d15;
 	}
 
-	@media screen and (max-width: 600px) {
-		html,
-		body {
-			font-size: 1rem;
-		}
+	:root[data-theme="dawn"] {
+		--background: #fff7fb;
+		--surface: #f7eaf3;
+		--surface-raised: #f2ddeb;
+		--border: #e9c6dd;
+		--text: #35263d;
+		--muted: #7a687f;
+		--purple: #8117c7;
+		--pink: #b13a85;
+		--cyan: #256d85;
+		--mint: #347f73;
+		--selection: #e8c4f4;
+		--selection-text: #35263d;
+		--cursor: #35263d;
+		--cursor-text: #fff7fb;
+		color-scheme: light;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body { margin: 0; font-size: 1rem; line-height: 1.7; }
+	::selection { background: var(--selection); color: var(--selection-text); }
+	a { color: var(--cyan); text-underline-offset: 5px; }
+	a:hover { color: var(--purple); }
+	a, button { transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease; }
+	button, input { font: inherit; }
+	button { cursor: pointer; }
+	:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
+	p { margin: 0 0 1.25rem; }
+	.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+	[hidden] { display: none !important; }
+	@media (prefers-reduced-motion: reduce) {
+		*, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 	}
 </style>

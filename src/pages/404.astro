@@ -26,7 +26,7 @@ import Layout from "../layouts/Layout.astro";
 		height: 100%;
 		padding: 24px;
 		overflow: hidden;
-    color: #e9e9f4;
+    color: var(--text);
 	}
 
 	.content {
@@ -50,15 +50,15 @@ import Layout from "../layouts/Layout.astro";
 		width: fit-content;
 		margin-top: 8px;
 		padding: 8px 12px;
-		border: 1px solid #f7f;
-		color: #f7f;
+		border: 1px solid var(--purple);
+		color: var(--purple);
 		text-decoration: none;
 		transition: background-color 0.2s ease, color 0.2s ease;
 	}
 
 	a:hover,
 	a:focus-visible {
-		background-color: #f7f;
-		color: #211925;
+		background-color: var(--purple);
+		color: var(--background);
 	}
 </style>

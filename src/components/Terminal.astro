@@ -1,0 +1,307 @@
+<section class="terminal" aria-label="Interactive terminal" hidden data-terminal>
+    <div class="suggestions" id="terminal-hint" role="group" aria-label="Suggested commands">
+        <span># try:</span>
+        {['help', 'about', 'links', 'contact', 'yotei', 'theme', 'clear'].map(command => <button type="button" data-command={command}>{command}</button>)}
+    </div>
+    <div class="output" role="log" aria-label="Command output" aria-live="polite" aria-relevant="additions" tabindex="0" data-output></div>
+    <form autocomplete="off" data-command-form>
+        <label for="terminal-command"><span class="prompt-user">bzenky<span class="host">@bruno</span></span> <span class="directory">~</span> <span class="prompt-dollar">$</span><span class="sr-only">Terminal command</span></label>
+        <div class="command-line">
+            <input id="terminal-command" name="command" type="text" aria-describedby="terminal-hint" autocapitalize="off" spellcheck="false" maxlength="120" enterkeyhint="send" />
+            <span class="caret-measure" aria-hidden="true" data-caret-measure></span>
+            <span class="block-caret" aria-hidden="true" data-block-caret></span>
+        </div>
+        <button class="run" type="submit" aria-label="[enter] Run command">[enter]</button>
+    </form>
+</section>
+
+<script>
+    import { bio } from '../data/bio';
+    import { suggestCommand } from '../lib/command-suggestions';
+
+    const terminal = document.querySelector<HTMLElement>('[data-terminal]');
+    const form = document.querySelector<HTMLFormElement>('[data-command-form]');
+    const input = document.querySelector<HTMLInputElement>('#terminal-command');
+    const output = document.querySelector<HTMLElement>('[data-output]');
+
+    if (terminal && form && input && output) {
+        terminal.hidden = false;
+        const history: string[] = [];
+        let historyCount = 0;
+        let historyIndex = 0;
+        let draft = '';
+        const caret = terminal.querySelector<HTMLElement>('[data-block-caret]');
+        const measure = terminal.querySelector<HTMLElement>('[data-caret-measure]');
+
+        function syncCaret() {
+            if (!input || !caret || !measure) return;
+            measure.textContent = input.value.slice(0, input.selectionStart ?? input.value.length);
+            const offset = measure.getBoundingClientRect().width - input.scrollLeft;
+            const maxOffset = Math.max(0, input.clientWidth - caret.getBoundingClientRect().width);
+            caret.style.left = `${Math.max(0, Math.min(offset, maxOffset))}px`;
+            caret.textContent = [...input.value.slice(input.selectionStart ?? input.value.length)][0] ?? ' ';
+            caret.hidden = input.selectionStart !== input.selectionEnd;
+        }
+
+        const queueCaret = () => requestAnimationFrame(syncCaret);
+        for (const event of ['input', 'select', 'keyup', 'click', 'scroll', 'focus', 'blur']) {
+            input.addEventListener(event, queueCaret);
+        }
+        document.addEventListener('selectionchange', () => {
+            if (document.activeElement === input) queueCaret();
+        });
+        new ResizeObserver(queueCaret).observe(input);
+        document.fonts.ready.then(syncCaret);
+        syncCaret();
+
+        document.addEventListener('click', event => {
+            const target = event.target;
+            if (!(target instanceof Element)) return;
+            if (target.closest('a, button, input, textarea, select, label, [contenteditable], [role="button"]')) return;
+            if (window.getSelection()?.toString()) return;
+            input.focus();
+        });
+        const replies: Record<string, string> = {
+            help: 'about · a little about me\nlinks · find me online\ncontact · say hello\nyotei · my theme\ntheme · choose Yotei, Midnight, or Dawn\ntheme <variant> · switch and remember your choice\nhistory · show previous commands\nclear · clear this terminal\n\nUse ↑ / ↓ for history. Tab completes a command. Ctrl+L clears the screen.',
+            about: 'Bruno Asano · software developer from Brazil.\nReact, JavaScript, Node.js & Ruby on Rails.\nI like solving problems and making things useful.',
+            whoami: 'You’re a welcome visitor. Make yourself at home.',
+            pwd: '/home/bzenky — you’re in the right place.',
+        };
+        const linkReplies: Record<string, { label: string; url: string }[]> = {
+            links: [
+                { label: 'GitHub ↗', url: 'https://github.com/bzenky' },
+                { label: 'LinkedIn ↗', url: 'https://www.linkedin.com/in/bzenky' },
+                { label: 'Portfolio ↗', url: 'https://portfolio.bzenky.dev' },
+            ],
+            contact: [{ label: 'bzenky@gmail.com', url: 'mailto:bzenky@gmail.com' }],
+            yotei: [{ label: 'Yotei — my purple-red dawn theme ↗', url: 'https://github.com/bzenky/yotei' }],
+        };
+        const themes = { yotei: 'Yotei', midnight: 'Yotei Midnight', dawn: 'Yotei Dawn' };
+        const hiddenReplies: Record<string, string> = {
+            'cd ..': 'There’s no place like ~.',
+            'rm -rf /': 'Nice try. I just got this place looking good.',
+            'ping bruno': 'pong 🇧🇷',
+        };
+        const fileCommands: Record<string, string> = {
+            'cat about.txt': 'full-about',
+            './links.sh': 'links',
+            'cat yotei.conf': 'yotei',
+        };
+        const commands = [...Object.keys(replies), ...Object.keys(linkReplies), 'history', 'clear', 'theme', ...Object.keys(themes).map(theme => `theme ${theme}`)];
+
+        function clearTerminal() {
+            output?.replaceChildren();
+            const initialOutput = document.querySelector<HTMLElement>('[data-initial-output]');
+            if (initialOutput) initialOutput.hidden = true;
+        }
+
+        function setTheme(theme: keyof typeof themes) {
+            document.documentElement.dataset.theme = theme;
+            try { localStorage.setItem('yotei-theme', theme); } catch {}
+            document.querySelector('meta[name="theme-color"]')?.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--background').trim());
+            document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]').forEach(button => {
+                button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme));
+            });
+        }
+
+        function run(raw: string) {
+            const value = raw.trim();
+            if (!value || !output || !input) return;
+            history.push(value);
+            historyCount++;
+            if (history.length > 50) history.shift();
+            historyIndex = history.length;
+            draft = '';
+            input.value = '';
+            queueCaret();
+            const normalized = value.toLowerCase();
+            const command = Object.hasOwn(fileCommands, normalized) ? fileCommands[normalized] ?? normalized : normalized;
+            if (command === 'clear') {
+                clearTerminal();
+                return;
+            }
+            const entry = document.createElement('div');
+            entry.className = 'entry';
+            const prompt = document.createElement('p');
+            prompt.className = 'echo';
+            prompt.textContent = `bzenky@bruno ~ $ ${value}`;
+            entry.append(prompt);
+            const reply = document.createElement('p');
+            const [name, variant, ...extra] = command.split(/\s+/);
+            if (command === 'ls') {
+                reply.className = 'file-list';
+                for (const fileCommand of Object.keys(fileCommands)) {
+                    const filename = fileCommand.replace(/^(cat |\.\/)/, '');
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.textContent = filename;
+                    button.title = fileCommand;
+                    button.dataset.fileCommand = fileCommand;
+                    button.setAttribute('aria-label', `${fileCommand.startsWith('./') ? 'Run' : 'Read'} ${filename}`);
+                    button.addEventListener('click', () => {
+                        run(fileCommand);
+                        input?.focus();
+                    });
+                    reply.append(button);
+                }
+            } else if (command === 'history') {
+                reply.textContent = history.map((item, index) => `${historyCount - history.length + index + 1}  ${item}`).join('\n');
+            } else if (command === 'full-about') {
+                reply.textContent = bio.join('\n\n');
+            } else if (command === 'cat yotei') {
+                const mountain = document.createElement('pre');
+                mountain.className = 'mountain';
+                mountain.setAttribute('role', 'img');
+                mountain.setAttribute('aria-label', 'ASCII Mount Yotei beneath a dawn sky');
+                const lines = [
+                    '    .        *',
+                    '         .',
+                    "        /\\",
+                    "       /  \\",
+                    "      / /\\ \\",
+                    "     / /  \\ \\",
+                    "    /_/____\\_\\",
+                    '  ~~~~~~~~~~~~~~',
+                    '     Y O T E I',
+                ];
+                for (const [index, line] of lines.entries()) {
+                    const row = document.createElement('span');
+                    row.style.color = index < 2 ? 'var(--pink)' : index < 7 ? 'var(--purple)' : 'var(--cyan)';
+                    row.textContent = `${line}\n`;
+                    mountain.append(row);
+                }
+                entry.append(mountain);
+            } else if (Object.hasOwn(hiddenReplies, command)) {
+                reply.textContent = hiddenReplies[command] ?? '';
+            } else if (name === 'theme') {
+                if (variant) {
+                    if (Object.hasOwn(themes, variant) && extra.length === 0) {
+                        const theme = variant as keyof typeof themes;
+                        setTheme(theme);
+                        reply.textContent = `Theme: ${themes[theme]}.`;
+                    } else {
+                        reply.textContent = 'Usage: theme [yotei | midnight | dawn]';
+                    }
+                } else {
+                    reply.textContent = 'Choose a theme: ';
+                    for (const [id, label] of Object.entries(themes)) {
+                        const button = document.createElement('button');
+                        button.type = 'button';
+                        button.dataset.themeChoice = id;
+                        button.textContent = label;
+                        button.setAttribute('aria-pressed', String((document.documentElement.dataset.theme ?? 'yotei') === id));
+                        button.addEventListener('click', () => {
+                            setTheme(id as keyof typeof themes);
+                            input?.focus();
+                        });
+                        reply.append(button, document.createTextNode(' '));
+                    }
+                }
+            } else if (Object.hasOwn(linkReplies, command)) {
+                for (const { label, url } of linkReplies[command] ?? []) {
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.textContent = label;
+                    if (url.startsWith('https:')) {
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                    }
+                    reply.append(link, document.createElement('br'));
+                }
+            } else {
+                if (Object.hasOwn(replies, command)) {
+                    reply.textContent = replies[command] ?? '';
+                } else {
+                    const suggestion = suggestCommand(normalized, commands);
+                    reply.textContent = `Command not found: ${value}. `;
+                    if (suggestion) {
+                        reply.append('Did you mean ');
+                        const button = document.createElement('button');
+                        button.type = 'button';
+                        button.textContent = suggestion;
+                        button.addEventListener('click', () => {
+                            run(suggestion);
+                            input?.focus();
+                        });
+                        reply.append(button, '?');
+                    } else {
+                        reply.append('Try “help”.');
+                    }
+                }
+            }
+            entry.append(reply);
+            output.append(entry);
+            if (output.children.length > 20) output.firstElementChild?.remove();
+            form?.scrollIntoView({ block: 'nearest' });
+        }
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            run(input.value);
+            input.focus();
+        });
+        terminal.querySelectorAll<HTMLButtonElement>('[data-command]').forEach(button => {
+            button.addEventListener('click', () => {
+                run(button.dataset.command ?? '');
+                input.focus();
+            });
+        });
+        input.addEventListener('keydown', event => {
+            if (event.ctrlKey && !event.altKey && !event.metaKey && event.key.toLowerCase() === 'l') {
+                event.preventDefault();
+                clearTerminal();
+            } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                event.preventDefault();
+                if (historyIndex === history.length) draft = input.value;
+                historyIndex = Math.max(0, Math.min(history.length, historyIndex + (event.key === 'ArrowUp' ? -1 : 1)));
+                input.value = history[historyIndex] ?? draft;
+            } else if (event.key === 'Tab' && input.value.trim()) {
+                const matches = commands.filter(command => command.startsWith(input.value.trim().toLowerCase()));
+                if (matches.length === 1 && matches[0] !== input.value) {
+                    event.preventDefault();
+                    input.value = matches[0] ?? '';
+                }
+            } else if (event.key === 'Escape') {
+                input.value = '';
+            }
+            queueCaret();
+        });
+    }
+</script>
+
+<style>
+    .terminal { margin-top: 1rem; }
+    .output { overflow-wrap: anywhere; }
+    .output:empty { display: none; }
+    .output :global(.entry) { margin-bottom: 1rem; }
+    .output :global(p) { white-space: pre-wrap; margin: 0; font-size: inherit; }
+    .output :global(.echo) { color: var(--purple); margin-bottom: 0.5rem; }
+    .output :global(.mountain) { max-width: 100%; overflow-x: auto; margin: 0; font: inherit; line-height: 1.3; white-space: pre; }
+    .output :global(a) { display: inline-block; text-decoration: none; }
+    .output :global(a:hover) { text-decoration: underline; }
+    .output :global(button) { padding: 0 0.25ch; min-height: 2em; font: inherit; color: var(--cyan); background: transparent; border: 0; }
+    .output :global(button[aria-pressed="true"]) { color: var(--purple); text-decoration: underline; }
+    .output :global(.file-list) { display: flex; flex-wrap: wrap; gap: 0 2ch; }
+    form { display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.75ch; }
+    label { flex-shrink: 0; }
+    .prompt-user { color: var(--purple); }
+    .host { color: var(--muted); }
+    .directory { color: var(--cyan); }
+    .prompt-dollar { color: var(--pink); }
+    .command-line { position: relative; flex: 1 1 6ch; min-width: 0; overflow: hidden; }
+    input { display: block; width: 100%; min-width: 0; min-height: 44px; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--text); font-size: 1rem; caret-color: transparent; }
+    .caret-measure { position: absolute; visibility: hidden; white-space: pre; pointer-events: none; }
+    .block-caret { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1ch; height: 1.15em; line-height: 1.15; white-space: pre; overflow: hidden; background: var(--cursor); color: var(--cursor-text); pointer-events: none; animation: blink 1.4s ease-in-out infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    input:focus-visible { outline: none; }
+    form:focus-within .prompt-dollar { color: var(--mint); }
+    .run { display: none; }
+    .suggestions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1ch; color: var(--muted); margin-bottom: 0.5rem; }
+    .suggestions button, .run { color: var(--cyan); border: 0; border-radius: 0; background: transparent; padding: 0; min-height: 2em; }
+    button:hover { color: var(--purple); text-decoration: underline; }
+    @media (pointer: coarse) {
+        .run { display: inline-block; min-height: 44px; }
+        .suggestions button, .output :global(a), .output :global(button) { min-height: 44px; }
+    }
+    @media (max-width: 420px) { .host { display: none; } }
+</style>

@@ -3,50 +3,20 @@ import Caret from "./Caret.astro";
 const { useCaret = false } = Astro.props;
 ---
 
-<div id="cli-prefix-container">
-  <span id="cli-prefix"> bzenky@Bruno Asano ~ </span>
-  <span id="dollar-sign">$</span>
-  <span id="command-input" class={useCaret ? "typeAnimation" : "default"}>
-    <slot />
-    {useCaret && <Caret />}
-  </span>
+<div class="cli-prefix-container">
+  <span class="cli-prefix">bzenky<span class="host">@bruno</span></span>
+  <span class="directory">~</span>
+  <span class="dollar-sign" aria-hidden="true">$</span>
+  <span class="command"><slot />{useCaret && <Caret />}</span>
 </div>
 
 <style>
-  #cli-prefix-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1ch;
-  }
-
-  #cli-prefix {
-    color: #f7f;
-  }
-
-  #dollar-sign {
-    color: #f8c;
-  }
-
-  #command-input {
-    display: flex;
-    align-items: center;
-
-    &.typeAnimation {
-      overflow: hidden;
-      white-space: nowrap;
-      width: 0;
-      animation: typeAnimation 1s steps(13, end) forwards;
-    }
-  }
-
-  @keyframes typeAnimation {
-    0% {
-      width: 0;
-    }
-    100% {
-      width: 13ch;
-    }
-  }
+  .cli-prefix-container { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75ch; font-size: inherit; }
+  .cli-prefix { color: var(--purple); }
+  .host { color: var(--muted); }
+  .directory { color: var(--cyan); }
+  .dollar-sign { color: var(--pink); }
+  .command { display: inline-flex; align-items: center; gap: 0.5ch; color: var(--text); }
+  .command :global(p) { margin: 0; }
+  @media (max-width: 420px) { .host { display: none; } }
 </style>

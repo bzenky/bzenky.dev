@@ -2,91 +2,82 @@
 import CliPrefix from "./CliPrefix.astro";
 import SocialLinks from "./SocialLinks.astro";
 import Contact from "./Contact.astro";
+import Terminal from "./Terminal.astro";
+import { bio } from "../data/bio";
 ---
 
-<main id="container">
-    <CliPrefix useCaret={true}>
-        <p>me --help</p>
-    </CliPrefix>
-
-    <div class="fade-in">
-        <div class="shade"></div>
-        <SocialLinks />
-        <p>
-            I'm a software developer from Brazil with over five years of
-            experience building things for the web. React and JavaScript are
-            where I've spent most of my time, but I'm also comfortable working
-            across the stack with Node.js and Ruby on Rails.
-        </p>
-
-        <p>
-            Most of what I enjoy about software development comes down to
-            solving problems. Sometimes that's building something new, sometimes
-            it's improving an existing feature, tracking down a weird production
-            issue, or jumping into another part of the stack to understand
-            what's actually going on.
-        </p>
-
-        <p>
-            Today, I work on an international SaaS product for qualitative and
-            quantitative research. Along the way, I've worked with both
-            consulting and product teams, collaborated with people from
-            different areas, and learned that good software is about much more
-            than just writing code. I care about building things that are
-            reliable, maintainable, and useful to the people who actually use
-            them.
-        </p>
-        <CliPrefix>
-            <p>contact</p>
-        </CliPrefix>
-        <Contact />
+<a class="skip-link" href="#about">Skip to content</a>
+<main aria-label="Bruno Asano’s terminal">
+    <div data-initial-output>
+        <CliPrefix><span class="intro-command" data-intro-command>me --help</span></CliPrefix>
+        <script is:inline>
+            (() => {
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                const command = document.querySelector('[data-intro-command]');
+                const main = command?.closest('main');
+                if (!command || !main) return;
+                const finish = () => {
+                    main.removeAttribute('data-booting');
+                    const response = main.querySelector('.intro-response');
+                    if (response) response.inert = false;
+                    clearTimeout(fallback);
+                };
+                const fallback = setTimeout(finish, 4000);
+                main.addEventListener('animationend', event => {
+                    if (event.target === command && event.animationName === 'type-command' && main.hasAttribute('data-booting')) {
+                        const response = main.querySelector('.intro-response');
+                        if (response) response.inert = true;
+                        main.setAttribute('data-booting', 'output');
+                    } else if (event.animationName === 'print-response') {
+                        finish();
+                    }
+                });
+                main.addEventListener('animationcancel', event => {
+                    if (event.animationName === 'type-command' || event.animationName === 'print-response') finish();
+                });
+                main.setAttribute('data-booting', 'typing');
+                command.classList.add('is-typing');
+                document.querySelector('.skip-link')?.addEventListener('click', finish);
+            })();
+        </script>
+        <div class="intro-response">
+            <section id="about" aria-labelledby="name" class="command-output" tabindex="-1">
+                <h1 id="name" class="sr-only">Bruno Asano — software developer</h1>
+                <SocialLinks />
+                <div class="bio">
+                    {bio.map(paragraph => <p>{paragraph}</p>)}
+                </div>
+            </section>
+            <section class="contact" aria-label="Contact">
+                <CliPrefix><span>contact</span></CliPrefix>
+                <div class="command-output"><Contact /></div>
+            </section>
+        </div>
     </div>
+    <Terminal />
 </main>
 
 <style>
-    #container {
-        max-width: 80ch;
-        height: 100%;
-        padding: 24px;
-        overflow: hidden;
+    main { max-width: 84ch; min-height: 100svh; padding: clamp(1rem, 3vw, 2rem); }
+    .skip-link { position: absolute; top: -100px; left: 1rem; background: var(--background); padding: 0.5rem 1rem; z-index: 1; }
+    .skip-link:focus { top: 1rem; }
+    .command-output { margin: 1rem 0 1.5rem; }
+    .bio { margin-top: 1rem; }
+    .bio p:last-child { margin-bottom: 0; }
+    .contact .command-output { margin-bottom: 1rem; }
+    .intro-command { display: inline-block; white-space: pre; }
+    @media (prefers-reduced-motion: no-preference) {
+        .intro-command.is-typing { animation: type-command 1s steps(9, end) both; }
+        main[data-booting="typing"] .intro-response,
+        main[data-booting] :global([data-terminal]) { visibility: hidden; }
+        main[data-booting="output"] .intro-response { animation: print-response 1.4s linear 120ms both; }
     }
-
-    .shade {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: #211925;
-        animation: fallDown 1.8s 1.5s forwards;
+    @keyframes print-response {
+        from { clip-path: inset(0 0 100% 0); }
+        to { clip-path: inset(0 0 0 0); }
     }
-
-    p {
-        line-height: 1.6;
-        color: #e9e9f4;
-    }
-
-    .fade-in {
-        position: relative;
-        overflow: hidden;
-        opacity: 0;
-        height: 100%;
-        animation: fadeIn 1.8s 1.5s forwards;
-    }
-
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes fallDown {
-        to {
-            transform: translateY(100%);
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .fade-in {
-            opacity: 1;
-        }
+    @keyframes type-command {
+        from { clip-path: inset(0 100% 0 0); }
+        to { clip-path: inset(0 0 0 0); }
     }
 </style>

@@ -1,61 +1,13 @@
-<ul>
-    <li>
-        <a
-            href="https://github.com/bzenky"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            GitHub
-        </a>
-    </li>
-    <li>
-        <a
-            href="https://www.linkedin.com/in/bzenky"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            LinkedIn
-        </a>
-    </li>
-    <!-- <li>
-    <a
-      href="https://www.portfolio.bzenky.dev"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Portfolio
-    </a>
-  </li> -->
-    <!-- <li>
-        <a
-            href="https://www.youtube.com/@_zenky"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Youtube ()
-        </a>
-    </li> -->
-</ul>
+<nav aria-label="Find me online">
+    <a href="https://github.com/bzenky" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="https://www.linkedin.com/in/bzenky" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="https://portfolio.bzenky.dev" target="_blank" rel="noopener noreferrer">Portfolio</a>
+</nav>
 
 <style>
-    ul {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin: 0;
-    }
-
-    li {
-        color: #fff;
-    }
-
-    a {
-        color: #62d6e8;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    a:hover {
-        color: #e462e8;
-    }
+    nav { display: flex; flex-direction: column; align-items: flex-start; }
+    a { display: inline-flex; align-items: center; min-height: 2em; text-decoration: none; }
+    a::before { content: "- "; white-space: pre; color: var(--muted); }
+    a:hover { text-decoration: underline; }
+    @media (pointer: coarse) { a { min-height: 44px; } }
 </style>
