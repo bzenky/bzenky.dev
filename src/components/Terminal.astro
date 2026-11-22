@@ -61,6 +61,24 @@
             if (window.getSelection()?.toString()) return;
             input.focus();
         });
+
+        const main = terminal.closest('main');
+        const focusOnLoad = () => {
+            if (!matchMedia('(pointer: fine)').matches) return;
+            if (document.activeElement && document.activeElement !== document.body) return;
+            input.focus({ preventScroll: true });
+        };
+        if (main?.hasAttribute('data-booting')) {
+            const observer = new MutationObserver(() => {
+                if (main.hasAttribute('data-booting')) return;
+                observer.disconnect();
+                focusOnLoad();
+            });
+            observer.observe(main, { attributes: true, attributeFilter: ['data-booting'] });
+        } else {
+            focusOnLoad();
+        }
+
         const replies: Record<string, string> = {
             help: 'about · a little about me\nlinks · find me online\ncontact · say hello\nyotei · my theme\ntheme · choose Yotei, Midnight, or Dawn\ntheme <variant> · switch and remember your choice\nhistory · show previous commands\nclear · clear this terminal\n\nUse ↑ / ↓ for history. Tab completes a command. Ctrl+L clears the screen.',
             about: 'Bruno Asano · software developer from Brazil.\nReact, JavaScript, Node.js & Ruby on Rails.\nI like solving problems and making things useful.',
