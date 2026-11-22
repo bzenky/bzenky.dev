@@ -1,3 +1,10 @@
+---
+const title = "Bruno Asano · Software Developer";
+const description = "Software developer from Brazil building for the web with React, JavaScript, Node.js and Ruby on Rails. Problem solver who cares about reliable, useful software.";
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const image = new URL("/og.png", Astro.site).href;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -7,7 +14,24 @@
 		<link rel="dns-prefetch" href="https://www.google-analytics.com">
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content="A simple personal website. Software engineer, developer, frontend lover and technology enthusiast." />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="bzenky.dev" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={image} />
+		<meta property="og:image:secure_url" content={image} />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Bruno Asano — software developer from Brazil, shown in a terminal window" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={image} />
 		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +49,7 @@
 				document.querySelector('meta[name="theme-color"]').content = backgrounds[theme];
 			})();
 		</script>
-		<title>Bruno Asano</title>
+		<title>{title}</title>
 
 		<script
 			is:inline
