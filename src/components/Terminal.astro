@@ -132,6 +132,7 @@
 
         function entryList(entries: Entry[]) {
             const list = document.createElement('p');
+            const spaced = entries.some(({ notes }) => notes?.length);
             entries.forEach(({ title, place, detail, notes = [] }, index) => {
                 const role = document.createElement('span');
                 role.className = 'role';
@@ -141,7 +142,7 @@
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
                 link.textContent = `${place.label} ↗`;
-                if (index > 0) list.append('\n');
+                if (spaced && index > 0) list.append('\n');
                 list.append(role, ' · ', link, ` · ${detail}\n`);
                 for (const note of notes) list.append(`  ${note}\n`);
             });
