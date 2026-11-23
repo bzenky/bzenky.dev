@@ -131,6 +131,25 @@ const image = new URL("/og.png", Astro.site).href;
 	p { margin: 0 0 1.25rem; }
 	.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 	[hidden] { display: none !important; }
+
+	/* Registered as colors so `sunrise` can animate between themes. */
+	@property --background { syntax: '<color>'; inherits: true; initial-value: #222230; }
+	@property --surface { syntax: '<color>'; inherits: true; initial-value: #222230; }
+	@property --surface-raised { syntax: '<color>'; inherits: true; initial-value: #282936; }
+	@property --border { syntax: '<color>'; inherits: true; initial-value: #4d4352; }
+	@property --text { syntax: '<color>'; inherits: true; initial-value: #e9e9f4; }
+	@property --muted { syntax: '<color>'; inherits: true; initial-value: #b0abc1; }
+	@property --purple { syntax: '<color>'; inherits: true; initial-value: #de71ff; }
+	@property --pink { syntax: '<color>'; inherits: true; initial-value: #ea51b2; }
+	@property --cyan { syntax: '<color>'; inherits: true; initial-value: #62d6e8; }
+	@property --mint { syntax: '<color>'; inherits: true; initial-value: #a1efe4; }
+	@property --cursor { syntax: '<color>'; inherits: true; initial-value: #e9e9f4; }
+	@property --cursor-text { syntax: '<color>'; inherits: true; initial-value: #222230; }
+	:root[data-sunrise] {
+		--sunrise-ease: 1s ease-in-out;
+		transition: --background var(--sunrise-ease), --surface var(--sunrise-ease), --surface-raised var(--sunrise-ease), --border var(--sunrise-ease), --text var(--sunrise-ease), --muted var(--sunrise-ease), --purple var(--sunrise-ease), --pink var(--sunrise-ease), --cyan var(--sunrise-ease), --mint var(--sunrise-ease), --cursor var(--sunrise-ease), --cursor-text var(--sunrise-ease);
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		*, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 	}

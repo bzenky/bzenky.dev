@@ -57,7 +57,7 @@
         document.addEventListener('click', event => {
             const target = event.target;
             if (!(target instanceof Element)) return;
-            if (target.closest('a, button, input, textarea, select, label, [contenteditable], [role="button"]')) return;
+            if (target.closest('a, button, input, textarea, select, label, [contenteditable], [role="button"], .mountain')) return;
             if (window.getSelection()?.toString()) return;
             input.focus();
         });
@@ -80,7 +80,7 @@
         }
 
         const replies: Record<string, string> = {
-            help: 'about · a little about me\nlinks · find me online\ncontact · say hello\nyotei · my theme\ntheme · choose Yotei, Midnight, or Dawn\ntheme <variant> · switch and remember your choice\nhistory · show previous commands\nclear · clear this terminal\n\nUse ↑ / ↓ for history. Tab completes a command. Ctrl+L clears the screen.',
+            help: 'about · a little about me\nneofetch · me, at a glance\nlinks · find me online\ncontact · say hello\nyotei · my theme\ntheme · choose Yotei, Midnight, or Dawn\ntheme <variant> · switch and remember your choice\ndate · what time it is for me\nopen <site> · open github, linkedin, portfolio, or yotei\ncopy email · copy my email address\nhistory · show previous commands\nclear · clear this terminal\n\nUse ↑ / ↓ for history and !! to repeat the last command. Tab completes a command. Ctrl+C cancels, Ctrl+L clears the screen.',
             about: 'Bruno Asano · software developer from Brazil.\nReact, JavaScript, Node.js & Ruby on Rails.\nI like solving problems and making things useful.',
             whoami: 'You’re a welcome visitor. Make yourself at home.',
             pwd: '/home/bzenky — you’re in the right place.',
@@ -99,13 +99,29 @@
             'cd ..': 'There’s no place like ~.',
             'rm -rf /': 'Nice try. I just got this place looking good.',
             'ping bruno': 'pong 🇧🇷',
+            'git blame': 'It was like that when I got here.',
+            vim: 'You’re in. Good luck getting out.',
+            vi: 'You’re in. Good luck getting out.',
+            nvim: 'You’re in. Good luck getting out.',
+            ':q': 'Thanks, I was worried about you.',
+            ':q!': 'Thanks, I was worried about you.',
+            ':wq': 'Thanks, I was worried about you.',
+            'git push --force': 'Bold. I respect it.',
+            'git push -f': 'Bold. I respect it.',
         };
+        const sites: Record<string, { label: string; url: string }> = {
+            github: { label: 'GitHub', url: 'https://github.com/bzenky' },
+            linkedin: { label: 'LinkedIn', url: 'https://www.linkedin.com/in/bzenky' },
+            portfolio: { label: 'Portfolio', url: 'https://portfolio.bzenky.dev' },
+            yotei: { label: 'Yotei', url: 'https://github.com/bzenky/yotei' },
+        };
+        const email = 'bzenky@gmail.com';
         const fileCommands: Record<string, string> = {
             'cat about.txt': 'full-about',
             './links.sh': 'links',
             'cat yotei.conf': 'yotei',
         };
-        const commands = [...Object.keys(replies), ...Object.keys(linkReplies), 'history', 'clear', 'theme', ...Object.keys(themes).map(theme => `theme ${theme}`)];
+        const commands = [...Object.keys(replies), ...Object.keys(linkReplies), 'neofetch', 'date', 'copy email', ...Object.keys(sites).map(site => `open ${site}`), 'history', 'clear', 'theme', ...Object.keys(themes).map(theme => `theme ${theme}`)];
 
         function clearTerminal() {
             output?.replaceChildren();
@@ -113,37 +129,335 @@
             if (initialOutput) initialOutput.hidden = true;
         }
 
-        function setTheme(theme: keyof typeof themes) {
+        type Theme = keyof typeof themes;
+        const KONAMI = '↑↑↓↓←→←→BA';
+        const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function applyTheme(theme: Theme) {
             document.documentElement.dataset.theme = theme;
-            try { localStorage.setItem('yotei-theme', theme); } catch {}
             document.querySelector('meta[name="theme-color"]')?.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--background').trim());
             document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]').forEach(button => {
                 button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme));
             });
         }
 
+        function setTheme(theme: Theme) {
+            stopSunrise();
+            applyTheme(theme);
+            try { localStorage.setItem('yotei-theme', theme); } catch {}
+        }
+
+        let sunriseTimers: number[] = [];
+        let sunriseFrom: Theme | undefined;
+        function stopSunrise() {
+            sunriseTimers.forEach(clearTimeout);
+            sunriseTimers = [];
+            sunriseFrom = undefined;
+            delete document.documentElement.dataset.sunrise;
+        }
+        function sunrise() {
+            const from = sunriseFrom ?? (document.documentElement.dataset.theme ?? 'yotei') as Theme;
+            stopSunrise();
+            sunriseFrom = from;
+            document.documentElement.dataset.sunrise = '';
+            const step = 1400;
+            const steps: Theme[] = ['midnight', 'dawn', from];
+            steps.forEach((theme, index) => {
+                sunriseTimers.push(window.setTimeout(() => applyTheme(theme), index * step));
+            });
+            sunriseTimers.push(window.setTimeout(() => {
+                stopSunrise();
+                applyTheme(from);
+            }, steps.length * step));
+        }
+
+        type Draw = (context: CanvasRenderingContext2D, opacity: number) => void;
+        let overlayActive = false;
+        // Full-screen canvas over the page for 5s, fading out over the last second.
+        function playOverlay(setup: (width: number, height: number) => Draw) {
+            if (overlayActive) return;
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            if (!context) return;
+            overlayActive = true;
+            canvas.setAttribute('aria-hidden', 'true');
+            canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10';
+            const width = innerWidth;
+            const height = innerHeight;
+            const ratio = devicePixelRatio || 1;
+            canvas.width = width * ratio;
+            canvas.height = height * ratio;
+            context.scale(ratio, ratio);
+            document.body.append(canvas);
+            const draw = setup(width, height);
+            const duration = 5000;
+            const fade = 1000;
+            const start = performance.now();
+
+            function frame(now: number) {
+                if (!context) return;
+                const elapsed = now - start;
+                if (elapsed > duration) {
+                    canvas.remove();
+                    overlayActive = false;
+                    return;
+                }
+                context.clearRect(0, 0, width, height);
+                draw(context, Math.min(1, (duration - elapsed) / fade));
+                requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        }
+
+        const themeColor = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+        function rain() {
+            playOverlay((width, height) => {
+                const size = 16;
+                const trail = 14;
+                const head = themeColor('--text');
+                const colors = ['--purple', '--pink', '--cyan'].map(themeColor);
+                const glyphs = 'ヨテイアイウエオカキクケコサシスセソ01<>/{}$#';
+                const columns = Array.from({ length: Math.ceil(width / size) }, () => ({
+                    y: -Math.random() * (height / size),
+                    speed: 0.25 + Math.random() * 0.45,
+                    color: colors[Math.floor(Math.random() * colors.length)] ?? head,
+                }));
+                return (context, opacity) => {
+                    context.font = `${size}px "JetBrains Mono", monospace`;
+                    context.textBaseline = 'top';
+                    columns.forEach((column, index) => {
+                        column.y += column.speed;
+                        if (column.y - trail > height / size) column.y = -Math.random() * 10;
+                        const top = Math.floor(column.y);
+                        for (let step = 0; step < trail; step++) {
+                            const row = top - step;
+                            if (row < 0) continue;
+                            context.globalAlpha = opacity * (1 - step / trail);
+                            context.fillStyle = step === 0 ? head : column.color;
+                            context.fillText(glyphs[(index * 31 + row * 17) % glyphs.length] ?? '', index * size, row * size);
+                        }
+                    });
+                };
+            });
+        }
+
+        function snow() {
+            playOverlay((width, height) => {
+                const color = themeColor('--text');
+                const flakes = Array.from({ length: Math.min(220, Math.round(width / 7)) }, () => ({
+                    x: Math.random() * width,
+                    y: -Math.random() * height,
+                    radius: 1 + Math.random() * 2.2,
+                    speed: 0.4 + Math.random() * 1.1,
+                    phase: Math.random() * Math.PI * 2,
+                }));
+                return (context, opacity) => {
+                    context.fillStyle = color;
+                    for (const flake of flakes) {
+                        flake.y += flake.speed;
+                        flake.phase += 0.02;
+                        flake.x += Math.sin(flake.phase) * 0.4;
+                        if (flake.y > height + 4) {
+                            flake.y = -4;
+                            flake.x = Math.random() * width;
+                        }
+                        context.globalAlpha = opacity * (0.45 + flake.radius / 6);
+                        context.beginPath();
+                        context.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+                        context.fill();
+                    }
+                };
+            });
+        }
+
+        function mountain() {
+            const art = document.createElement('pre');
+            art.className = 'mountain';
+            art.setAttribute('role', 'img');
+            art.setAttribute('aria-label', 'ASCII Mount Yotei beneath a dawn sky');
+            const lines = [
+                '    .        *',
+                '         .',
+                "        /\\",
+                "       /  \\",
+                "      / /\\ \\",
+                "     / /  \\ \\",
+                "    /_/____\\_\\",
+                '  ~~~~~~~~~~~~~~',
+                '     Y O T E I',
+            ];
+            for (const [index, line] of lines.entries()) {
+                const row = document.createElement('span');
+                row.style.color = index < 2 ? 'var(--pink)' : index < 7 ? 'var(--purple)' : 'var(--cyan)';
+                row.textContent = `${line}\n`;
+                art.append(row);
+            }
+            // Touch stand-in for the Konami code: tap the mountain five times.
+            let taps = 0;
+            let tapTimer = 0;
+            art.addEventListener('click', () => {
+                clearTimeout(tapTimer);
+                tapTimer = window.setTimeout(() => { taps = 0; }, 1500);
+                if (++taps < 5) return;
+                taps = 0;
+                run(KONAMI);
+            });
+            return art;
+        }
+
+        function neofetch() {
+            const card = document.createElement('div');
+            card.className = 'neofetch';
+            const info = document.createElement('p');
+            const user = document.createElement('span');
+            user.className = 'prompt-user';
+            user.textContent = 'bzenky';
+            const host = document.createElement('span');
+            host.className = 'host';
+            host.textContent = '@bruno';
+            info.append(user, host, '\n------------\n');
+            const theme = (document.documentElement.dataset.theme ?? 'yotei') as Theme;
+            const fields = [
+                ['os', 'Brazil 🇧🇷'],
+                ['uptime', '5+ years building for the web'],
+                ['stack', 'React · JavaScript · Node.js · Rails'],
+                ['work', 'SaaS for qualitative & quantitative research'],
+                ['shell', 'zsh (Oh My Zsh)'],
+                ['editor', 'T3 Code / Orca'],
+                ['terminal', 'kitty / Windows Terminal'],
+                ['theme', themes[theme] ?? themes.yotei],
+                ['font', 'JetBrains Mono'],
+            ];
+            for (const [key, text] of fields) {
+                const label = document.createElement('span');
+                label.className = 'key';
+                label.textContent = `${key}: `;
+                info.append(label, `${text}\n`);
+            }
+            const swatches = document.createElement('span');
+            swatches.className = 'swatches';
+            swatches.setAttribute('aria-hidden', 'true');
+            for (const color of ['text', 'purple', 'pink', 'cyan', 'mint', 'muted']) {
+                const swatch = document.createElement('span');
+                swatch.style.background = `var(--${color})`;
+                swatches.append(swatch);
+            }
+            info.append('\n', swatches);
+            card.append(mountain(), info);
+            return card;
+        }
+
+        const between = (min: number, max: number) => min + Math.floor(Math.random() * (max - min + 1));
+
+        function processList() {
+            const processes = [
+                { pid: 1, name: 'coffee', cpu: between(88, 99), mem: between(8, 16) },
+                { pid: 42, name: 'side-projects', cpu: between(20, 75), mem: between(15, 45) },
+                { pid: 127, name: 'learning', cpu: between(30, 85), mem: between(35, 70) },
+                { pid: 404, name: 'debugging', cpu: between(5, 90), mem: between(5, 40) },
+                { pid: 1337, name: 'yotei-theme', cpu: between(3, 20), mem: between(2, 8) },
+                { pid: 2077, name: 'sleep', cpu: 0, mem: 0 },
+            ].sort((a, b) => b.cpu - a.cpu);
+            const rows = processes.map(({ pid, name, cpu, mem }) =>
+                `${String(pid).padStart(5)}  ${name.padEnd(14)}  ${`${cpu}%`.padStart(4)}  ${`${mem}%`.padStart(4)}`);
+            return ['  PID  PROCESS          CPU   MEM', ...rows].join('\n');
+        }
+
+        function npmInstall() {
+            const added = between(120, 2400);
+            const audited = added + between(1, 60);
+            const seconds = (between(2, 300) / 10).toFixed(1);
+            const summary = `added ${added.toLocaleString('en-US')} packages, and audited ${audited.toLocaleString('en-US')} packages in ${seconds}s`;
+            if (Math.random() < 0.7) return `${summary}\n\n0 vulnerabilities (this time)`;
+            const moderate = between(1, 9);
+            const high = between(0, 4);
+            return `${summary}\n\n${moderate + high} vulnerabilities (${moderate} moderate, ${high} high)\n\nTo address all issues, run:\n  npm audit fix`;
+        }
+
+        const notFound = [
+            (value: string) => `Command not found: ${value}. `,
+            (value: string) => `bzenky: ${value}: command not found. `,
+            (value: string) => `“${value}”? Never heard of it. `,
+            (value: string) => `I looked everywhere. No ${value} here. `,
+            (value: string) => `${value} isn’t installed. Yet. `,
+        ];
+        let lastNotFound = -1;
+        function notFoundMessage(value: string) {
+            let index = Math.floor(Math.random() * notFound.length);
+            if (index === lastNotFound) index = (index + 1) % notFound.length;
+            lastNotFound = index;
+            return notFound[index]?.(value) ?? `Command not found: ${value}. `;
+        }
+
+        function brazilTime() {
+            const now = new Date();
+            const timeZone = 'America/Sao_Paulo';
+            const day = new Intl.DateTimeFormat('en-GB', { timeZone, weekday: 'short', day: 'numeric', month: 'short' }).format(now);
+            const time = new Intl.DateTimeFormat('en-GB', { timeZone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now);
+            return `${day} · ${time} in Brazil (BRT, UTC−3)`;
+        }
+
+        function newEntry(typed: string) {
+            const entry = document.createElement('div');
+            entry.className = 'entry';
+            const prompt = document.createElement('p');
+            prompt.className = 'echo';
+            prompt.textContent = `bzenky@bruno ~ $ ${typed}`;
+            entry.append(prompt);
+            return entry;
+        }
+
+        function addEntry(entry: HTMLElement) {
+            output?.append(entry);
+            if (output && output.children.length > 20) output.firstElementChild?.remove();
+            form?.scrollIntoView({ block: 'nearest' });
+        }
+
+        function resetInput() {
+            if (!input) return;
+            input.value = '';
+            historyIndex = history.length;
+            draft = '';
+            queueCaret();
+        }
+
+        // Bash-style history expansion: !! is the last command, !n is entry n of `history`.
+        function expandHistory(value: string) {
+            if (value === '!!') return history.at(-1);
+            if (/^!\d+$/.test(value)) return history[Number(value.slice(1)) - (historyCount - history.length) - 1];
+            return value;
+        }
+
         function run(raw: string) {
-            const value = raw.trim();
-            if (!value || !output || !input) return;
+            const typed = raw.trim();
+            if (!typed || !output || !input) return;
+            const value = expandHistory(typed);
+            if (!value) {
+                resetInput();
+                const entry = newEntry(typed);
+                const reply = document.createElement('p');
+                reply.textContent = `bzenky: ${typed}: event not found`;
+                entry.append(reply);
+                addEntry(entry);
+                return;
+            }
             history.push(value);
             historyCount++;
             if (history.length > 50) history.shift();
-            historyIndex = history.length;
-            draft = '';
-            input.value = '';
-            queueCaret();
+            resetInput();
             const normalized = value.toLowerCase();
             const command = Object.hasOwn(fileCommands, normalized) ? fileCommands[normalized] ?? normalized : normalized;
             if (command === 'clear') {
                 clearTerminal();
                 return;
             }
-            const entry = document.createElement('div');
-            entry.className = 'entry';
-            const prompt = document.createElement('p');
-            prompt.className = 'echo';
-            prompt.textContent = `bzenky@bruno ~ $ ${value}`;
-            entry.append(prompt);
+            const entry = newEntry(typed);
+            if (value !== typed) {
+                const expanded = document.createElement('p');
+                expanded.textContent = value;
+                entry.append(expanded);
+            }
             const reply = document.createElement('p');
             const [name, variant, ...extra] = command.split(/\s+/);
             if (command === 'ls') {
@@ -167,30 +481,76 @@
             } else if (command === 'full-about') {
                 reply.textContent = bio.join('\n\n');
             } else if (command === 'cat yotei') {
-                const mountain = document.createElement('pre');
-                mountain.className = 'mountain';
-                mountain.setAttribute('role', 'img');
-                mountain.setAttribute('aria-label', 'ASCII Mount Yotei beneath a dawn sky');
-                const lines = [
-                    '    .        *',
-                    '         .',
-                    "        /\\",
-                    "       /  \\",
-                    "      / /\\ \\",
-                    "     / /  \\ \\",
-                    "    /_/____\\_\\",
-                    '  ~~~~~~~~~~~~~~',
-                    '     Y O T E I',
-                ];
-                for (const [index, line] of lines.entries()) {
-                    const row = document.createElement('span');
-                    row.style.color = index < 2 ? 'var(--pink)' : index < 7 ? 'var(--purple)' : 'var(--cyan)';
-                    row.textContent = `${line}\n`;
-                    mountain.append(row);
+                entry.append(mountain());
+            } else if (command === KONAMI.toLowerCase()) {
+                entry.append(mountain());
+                reply.textContent = 'Cheat code accepted. You reached the summit.';
+            } else if (command === 'neofetch') {
+                entry.append(neofetch());
+            } else if (name === 'npm' && (variant === 'install' || variant === 'i')) {
+                reply.textContent = npmInstall();
+            } else if (name === 'echo') {
+                reply.textContent = value.slice(4).trim();
+            } else if (command === 'date') {
+                reply.textContent = brazilTime();
+            } else if (name === 'sudo') {
+                reply.textContent = 'bzenky is not in the sudoers file. This incident will be reported.';
+            } else if (command === 'sunrise') {
+                if (reducedMotion()) {
+                    reply.textContent = 'Sunrise skipped: reduced motion is on. Try “theme dawn”.';
+                } else {
+                    reply.textContent = 'The sun is coming up over Yōtei…';
+                    sunrise();
                 }
-                entry.append(mountain);
+            } else if (command === 'matrix') {
+                if (reducedMotion()) {
+                    reply.textContent = 'Follow the white rabbit. (The rain is off: reduced motion is on.)';
+                } else {
+                    reply.textContent = 'Follow the white rabbit.';
+                    rain();
+                }
+            } else if (command === 'snow') {
+                if (reducedMotion()) {
+                    reply.textContent = 'It’s snowing on Yōtei. (The snow is off: reduced motion is on.)';
+                } else {
+                    reply.textContent = 'It’s snowing on Yōtei.';
+                    snow();
+                }
+            } else if (command === 'top' || command === 'htop') {
+                reply.textContent = processList();
+            } else if (name === 'copy' && variant !== 'email') {
+                const target = value.slice(4).trim();
+                reply.textContent = target ? `I can’t copy “${target}”. Try “copy email”.` : 'Copy what? Try “copy email”.';
+            } else if (command === 'copy email') {
+                const failed = () => { reply.textContent = `Couldn’t reach your clipboard. Here it is: ${email}`; };
+                if (navigator.clipboard) {
+                    reply.textContent = 'Copying…';
+                    navigator.clipboard.writeText(email)
+                        .then(() => { reply.textContent = `Copied ${email} to your clipboard.`; })
+                        .catch(failed);
+                } else {
+                    failed();
+                }
+            } else if (name === 'open') {
+                const site = variant && extra.length === 0 ? sites[variant] : undefined;
+                if (site) {
+                    const link = document.createElement('a');
+                    link.href = site.url;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.textContent = `${site.label} ↗`;
+                    reply.append(`Opening `, link, '…');
+                    window.open(site.url, '_blank', 'noopener');
+                } else {
+                    reply.textContent = `Usage: open [${Object.keys(sites).join(' | ')}]`;
+                }
             } else if (Object.hasOwn(hiddenReplies, command)) {
                 reply.textContent = hiddenReplies[command] ?? '';
+            } else if (name === 'cd') {
+                const target = value.slice(2).trim();
+                reply.textContent = !target || target === '~' ? 'You’re already home.' : `${target}: no such directory. Everything I have is right here in ~.`;
+            } else if (name === 'ssh') {
+                reply.textContent = 'Connection refused. You’re already where you need to be.';
             } else if (name === 'theme') {
                 if (variant) {
                     if (Object.hasOwn(themes, variant) && extra.length === 0) {
@@ -231,7 +591,7 @@
                     reply.textContent = replies[command] ?? '';
                 } else {
                     const suggestion = suggestCommand(normalized, commands);
-                    reply.textContent = `Command not found: ${value}. `;
+                    reply.textContent = notFoundMessage(value);
                     if (suggestion) {
                         reply.append('Did you mean ');
                         const button = document.createElement('button');
@@ -248,9 +608,7 @@
                 }
             }
             entry.append(reply);
-            output.append(entry);
-            if (output.children.length > 20) output.firstElementChild?.remove();
-            form?.scrollIntoView({ block: 'nearest' });
+            addEntry(entry);
         }
 
         form.addEventListener('submit', event => {
@@ -268,6 +626,11 @@
             if (event.ctrlKey && !event.altKey && !event.metaKey && event.key.toLowerCase() === 'l') {
                 event.preventDefault();
                 clearTerminal();
+            } else if (event.ctrlKey && !event.altKey && !event.metaKey && event.key.toLowerCase() === 'c' && input.selectionStart === input.selectionEnd) {
+                // Only when nothing is selected, so Ctrl+C still copies a selection.
+                event.preventDefault();
+                addEntry(newEntry(`${input.value}^C`));
+                resetInput();
             } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
                 event.preventDefault();
                 if (historyIndex === history.length) draft = input.value;
@@ -284,6 +647,28 @@
             }
             queueCaret();
         });
+
+        const pageTitle = document.title;
+        document.addEventListener('visibilitychange', () => {
+            document.title = document.hidden ? 'come back ~ $' : pageTitle;
+        });
+
+        console.log(
+            '%cbzenky@bruno ~ $ %cLooking under the hood? Say hi → type “contact” in the terminal.',
+            'color:#de71ff;font-family:monospace;font-weight:bold',
+            'color:#62d6e8;font-family:monospace',
+        );
+
+        const konamiKeys = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let recentKeys: string[] = [];
+        document.addEventListener('keydown', event => {
+            recentKeys = [...recentKeys, event.key.length === 1 ? event.key.toLowerCase() : event.key].slice(-konamiKeys.length);
+            if (recentKeys.join() !== konamiKeys.join()) return;
+            recentKeys = [];
+            event.preventDefault();
+            run(KONAMI);
+            input.focus();
+        });
     }
 </script>
 
@@ -294,7 +679,12 @@
     .output :global(.entry) { margin-bottom: 1rem; }
     .output :global(p) { white-space: pre-wrap; margin: 0; font-size: inherit; }
     .output :global(.echo) { color: var(--purple); margin-bottom: 0.5rem; }
-    .output :global(.mountain) { max-width: 100%; overflow-x: auto; margin: 0; font: inherit; line-height: 1.3; white-space: pre; }
+    .output :global(.mountain) { max-width: 100%; overflow-x: auto; margin: 0; font: inherit; line-height: 1.3; white-space: pre; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+    .output :global(.neofetch) { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem 3ch; }
+    .output :global(.neofetch .key) { color: var(--cyan); }
+    .output :global(.neofetch .prompt-user) { color: var(--purple); }
+    .output :global(.neofetch .host) { color: var(--muted); }
+    .output :global(.swatches span) { display: inline-block; width: 3ch; height: 1em; vertical-align: middle; }
     .output :global(a) { display: inline-block; text-decoration: none; }
     .output :global(a:hover) { text-decoration: underline; }
     .output :global(button) { padding: 0 0.25ch; min-height: 2em; font: inherit; color: var(--cyan); background: transparent; border: 0; }
