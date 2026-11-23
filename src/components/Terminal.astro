@@ -81,20 +81,16 @@
         }
 
         const replies: Record<string, string> = {
-            help: 'about · a little about me\nexperience · where I’ve worked\neducation · where I studied\nprojects · things I’ve made\nresume · my resume, as a PDF\nneofetch · me, at a glance\nlinks · find me online\ncontact · say hello\nyotei · my theme\ntheme · choose Yotei, Midnight, or Dawn\ntheme <variant> · switch and remember your choice\ndate · what time it is for me\nopen <site> · open github, linkedin, youtube, or yotei\ncopy email · copy my email address\nhistory · show previous commands\nclear · clear this terminal\n\nUse ↑ / ↓ for history and !! to repeat the last command. Tab completes a command. Ctrl+C cancels, Ctrl+L clears the screen.',
+            help: 'about · a little about me\nexperience · where I’ve worked\neducation · where I studied\nprojects · things I’ve made\nresume · my resume, at a glance and as a PDF\nneofetch · me, at a glance\nlinks · find me online\ncontact · say hello\nyotei · my theme\ntheme · choose Yotei, Midnight, or Dawn\ntheme <variant> · switch and remember your choice\ndate · what time it is for me\nopen · pick a site to open\nopen <site> · open github, linkedin, youtube, yotei, or resume\ncopy email · copy my email address\nhistory · show previous commands\nclear · clear this terminal\n\nUse ↑ / ↓ for history and !! to repeat the last command. Tab completes a command. Ctrl+C cancels, Ctrl+L clears the screen.',
             about: 'Bruno Asano · software developer from Brazil.\nReact, JavaScript, Node.js & Ruby on Rails.\nI like solving problems and making things useful.',
             whoami: 'You’re a welcome visitor. Make yourself at home.',
             pwd: '/home/bzenky — you’re in the right place.',
         };
-        const linkReplies: Record<string, { label: string; url: string; download?: string }[]> = {
+        const linkReplies: Record<string, { label: string; url: string }[]> = {
             links: [
                 { label: 'GitHub ↗', url: 'https://github.com/bzenky' },
                 { label: 'LinkedIn ↗', url: 'https://www.linkedin.com/in/bzenky' },
                 { label: 'YouTube ↗', url: 'https://www.youtube.com/@_zenky' },
-            ],
-            resume: [
-                { label: 'bzenky.pdf · view ↗', url: '/bzenky.pdf' },
-                { label: 'download resume ↓', url: '/bzenky.pdf', download: 'Bruno Asano - Resume.pdf' },
             ],
             contact: [{ label: 'bzenky@gmail.com', url: 'mailto:bzenky@gmail.com' }],
             yotei: [{ label: 'Yotei — my purple-red dawn theme ↗', url: 'https://github.com/bzenky/yotei' }],
@@ -114,11 +110,13 @@
             'git push --force': 'Bold. I respect it.',
             'git push -f': 'Bold. I respect it.',
         };
+        const resumeUrl = '/bzenky.pdf';
         const sites: Record<string, { label: string; url: string }> = {
             github: { label: 'GitHub', url: 'https://github.com/bzenky' },
             linkedin: { label: 'LinkedIn', url: 'https://www.linkedin.com/in/bzenky' },
             youtube: { label: 'YouTube', url: 'https://www.youtube.com/@_zenky' },
             yotei: { label: 'Yotei', url: 'https://github.com/bzenky/yotei' },
+            resume: { label: 'Resume', url: resumeUrl },
         };
         const email = 'bzenky@gmail.com';
         const fileCommands: Record<string, string> = {
@@ -126,27 +124,49 @@
             './links.sh': 'links',
             'cat yotei.conf': 'yotei',
         };
-        const aliases: Record<string, string> = { work: 'experience', cv: 'resume' };
+        const aliases: Record<string, string> = { cv: 'resume' };
         const sections: Record<string, Entry[]> = { experience, education, projects };
-        const commands = [...Object.keys(replies), ...Object.keys(linkReplies), ...Object.keys(sections), ...Object.keys(aliases), 'neofetch', 'date', 'copy email', ...Object.keys(sites).map(site => `open ${site}`), 'history', 'clear', 'theme', ...Object.keys(themes).map(theme => `theme ${theme}`)];
+        const commands = [...Object.keys(replies), ...Object.keys(linkReplies), ...Object.keys(sections), 'resume', ...Object.keys(aliases), 'neofetch', 'date', 'copy email', ...Object.keys(sites).map(site => `open ${site}`), 'history', 'clear', 'theme', ...Object.keys(themes).map(theme => `theme ${theme}`)];
+
+        function newTabLink(label: string, url: string) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = `${label} ↗`;
+            return link;
+        }
+
+        function role(text: string) {
+            const span = document.createElement('span');
+            span.className = 'role';
+            span.textContent = text;
+            return span;
+        }
 
         function entryList(entries: Entry[]) {
             const list = document.createElement('p');
             const spaced = entries.some(({ notes }) => notes?.length);
             entries.forEach(({ title, place, detail, notes = [] }, index) => {
-                const role = document.createElement('span');
-                role.className = 'role';
-                role.textContent = title;
-                const link = document.createElement('a');
-                link.href = place.url;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                link.textContent = `${place.label} ↗`;
                 if (spaced && index > 0) list.append('\n');
-                list.append(role, ' · ', link, ` · ${detail}\n`);
+                list.append(role(title), ' · ', newTabLink(place.label, place.url), ` · ${detail}\n`);
                 for (const note of notes) list.append(`  ${note}\n`);
             });
             return list;
+        }
+
+        function resumeCard() {
+            const card = document.createElement('p');
+            const download = document.createElement('a');
+            download.href = resumeUrl;
+            download.download = 'Bruno Asano - Resume.pdf';
+            download.textContent = 'download ↓';
+            card.append(role('Bruno Asano'), ' · Software Developer · Brazil\n', 'React · JavaScript · Node.js · Rails\n');
+            const current = experience[0];
+            if (current) card.append('now: ', `${current.title} at `, newTabLink(current.place.label, current.place.url), '\n');
+            card.append('\nresume.pdf  ', newTabLink('view', resumeUrl), '  ', download, '\n');
+            card.append(newTabLink('GitHub', sites.github?.url ?? ''), '  ', newTabLink('LinkedIn', sites.linkedin?.url ?? ''));
+            return card;
         }
 
         function clearTerminal() {
@@ -509,6 +529,8 @@
                 reply.textContent = bio.join('\n\n');
             } else if (Object.hasOwn(sections, command)) {
                 entry.append(entryList(sections[command] ?? []));
+            } else if (command === 'resume') {
+                entry.append(resumeCard());
             } else if (command === 'cat yotei') {
                 entry.append(mountain());
             } else if (command === KONAMI.toLowerCase()) {
@@ -563,13 +585,20 @@
             } else if (name === 'open') {
                 const site = variant && extra.length === 0 ? sites[variant] : undefined;
                 if (site) {
-                    const link = document.createElement('a');
-                    link.href = site.url;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                    link.textContent = `${site.label} ↗`;
-                    reply.append(`Opening `, link, '…');
+                    reply.append(`Opening `, newTabLink(site.label, site.url), '…');
                     window.open(site.url, '_blank', 'noopener');
+                } else if (!variant) {
+                    reply.textContent = 'Open: ';
+                    for (const [id, { label }] of Object.entries(sites)) {
+                        const button = document.createElement('button');
+                        button.type = 'button';
+                        button.textContent = label;
+                        button.addEventListener('click', () => {
+                            run(`open ${id}`);
+                            input?.focus();
+                        });
+                        reply.append(button, ' ');
+                    }
                 } else {
                     reply.textContent = `Usage: open [${Object.keys(sites).join(' | ')}]`;
                 }
@@ -605,12 +634,11 @@
                     }
                 }
             } else if (Object.hasOwn(linkReplies, command)) {
-                for (const { label, url, download } of linkReplies[command] ?? []) {
+                for (const { label, url } of linkReplies[command] ?? []) {
                     const link = document.createElement('a');
                     link.href = url;
                     link.textContent = label;
-                    if (download) link.download = download;
-                    else if (!url.startsWith('mailto:')) {
+                    if (url.startsWith('https:')) {
                         link.target = '_blank';
                         link.rel = 'noopener noreferrer';
                     }
