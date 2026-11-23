@@ -1,7 +1,7 @@
 <section class="terminal" aria-label="Interactive terminal" hidden data-terminal>
     <div class="suggestions" id="terminal-hint" role="group" aria-label="Suggested commands">
         <span># try:</span>
-        {['help', 'about', 'experience', 'projects', 'links', 'contact', 'resume', 'yotei', 'theme', 'clear'].map(command => <button type="button" data-command={command}>{command}</button>)}
+        {['help', 'about', 'experience', 'projects', 'links', 'contact', 'yotei', 'theme', 'clear'].map(command => <button type="button" data-command={command}>{command}</button>)}
     </div>
     <div class="output" role="log" aria-label="Command output" aria-live="polite" aria-relevant="additions" tabindex="0" data-output></div>
     <form autocomplete="off" data-command-form>
@@ -81,7 +81,7 @@
         }
 
         const replies: Record<string, string> = {
-            help: 'about · a little about me\nexperience · where I’ve worked\neducation · where I studied\nprojects · things I’ve made\nresume · my resume, at a glance and as a PDF\nneofetch · me, at a glance\nlinks · find me online\ncontact · say hello\nyotei · my theme\ntheme · choose Yotei, Midnight, or Dawn\ntheme <variant> · switch and remember your choice\ndate · what time it is for me\nopen · pick a site to open\nopen <site> · open github, linkedin, youtube, yotei, or resume\ncopy email · copy my email address\nhistory · show previous commands\nclear · clear this terminal\n\nUse ↑ / ↓ for history and !! to repeat the last command. Tab completes a command. Ctrl+C cancels, Ctrl+L clears the screen.',
+            help: 'about · a little about me\nexperience · where I’ve worked\neducation · where I studied\nprojects · things I’ve made\nneofetch · me, at a glance\nlinks · find me online\ncontact · say hello\nyotei · my theme\ntheme · choose Yotei, Midnight, or Dawn\ntheme <variant> · switch and remember your choice\ndate · what time it is for me\nopen · pick a site to open\nopen <site> · open github, linkedin, youtube, or yotei\ncopy email · copy my email address\nhistory · show previous commands\nclear · clear this terminal\n\nUse ↑ / ↓ for history and !! to repeat the last command. Tab completes a command. Ctrl+C cancels, Ctrl+L clears the screen.',
             about: 'Bruno Asano · software developer from Brazil.\nReact, JavaScript, Node.js & Ruby on Rails.\nI like solving problems and making things useful.',
             whoami: 'You’re a welcome visitor. Make yourself at home.',
             pwd: '/home/bzenky — you’re in the right place.',
@@ -110,13 +110,11 @@
             'git push --force': 'Bold. I respect it.',
             'git push -f': 'Bold. I respect it.',
         };
-        const resumeUrl = '/bzenky.pdf';
         const sites: Record<string, { label: string; url: string }> = {
             github: { label: 'GitHub', url: 'https://github.com/bzenky' },
             linkedin: { label: 'LinkedIn', url: 'https://www.linkedin.com/in/bzenky' },
             youtube: { label: 'YouTube', url: 'https://www.youtube.com/@_zenky' },
             yotei: { label: 'Yotei', url: 'https://github.com/bzenky/yotei' },
-            resume: { label: 'Resume', url: resumeUrl },
         };
         const email = 'bzenky@gmail.com';
         const fileCommands: Record<string, string> = {
@@ -124,9 +122,8 @@
             './links.sh': 'links',
             'cat yotei.conf': 'yotei',
         };
-        const aliases: Record<string, string> = { cv: 'resume' };
         const sections: Record<string, Entry[]> = { experience, education, projects };
-        const commands = [...Object.keys(replies), ...Object.keys(linkReplies), ...Object.keys(sections), 'resume', ...Object.keys(aliases), 'neofetch', 'date', 'copy email', ...Object.keys(sites).map(site => `open ${site}`), 'history', 'clear', 'theme', ...Object.keys(themes).map(theme => `theme ${theme}`)];
+        const commands = [...Object.keys(replies), ...Object.keys(linkReplies), ...Object.keys(sections), 'neofetch', 'date', 'copy email', ...Object.keys(sites).map(site => `open ${site}`), 'history', 'clear', 'theme', ...Object.keys(themes).map(theme => `theme ${theme}`)];
 
         function newTabLink(label: string, url: string) {
             const link = document.createElement('a');
@@ -137,36 +134,26 @@
             return link;
         }
 
-        function role(text: string) {
-            const span = document.createElement('span');
-            span.className = 'role';
-            span.textContent = text;
-            return span;
-        }
-
         function entryList(entries: Entry[]) {
-            const list = document.createElement('p');
-            const spaced = entries.some(({ notes }) => notes?.length);
-            entries.forEach(({ title, place, detail, notes = [] }, index) => {
-                if (spaced && index > 0) list.append('\n');
-                list.append(role(title), ' · ', newTabLink(place.label, place.url), ` · ${detail}\n`);
-                for (const note of notes) list.append(`  ${note}\n`);
-            });
+            const list = document.createElement('div');
+            list.className = entries.some(({ notes }) => notes?.length) ? 'entries spaced' : 'entries';
+            for (const { title, place, detail, notes = [] } of entries) {
+                const item = document.createElement('div');
+                const header = document.createElement('div');
+                const role = document.createElement('span');
+                role.className = 'role';
+                role.textContent = title;
+                header.append(role, ' · ', newTabLink(place.label, place.url), ` · ${detail}`);
+                item.append(header);
+                for (const note of notes) {
+                    const bullet = document.createElement('div');
+                    bullet.className = 'note';
+                    bullet.textContent = `- ${note}`;
+                    item.append(bullet);
+                }
+                list.append(item);
+            }
             return list;
-        }
-
-        function resumeCard() {
-            const card = document.createElement('p');
-            const download = document.createElement('a');
-            download.href = resumeUrl;
-            download.download = 'Bruno Asano - Resume.pdf';
-            download.textContent = 'download ↓';
-            card.append(role('Bruno Asano'), ' · Software Developer · Brazil\n', 'React · JavaScript · Node.js · Rails\n');
-            const current = experience[0];
-            if (current) card.append('now: ', `${current.title} at `, newTabLink(current.place.label, current.place.url), '\n');
-            card.append('\nresume.pdf  ', newTabLink('view', resumeUrl), '  ', download, '\n');
-            card.append(newTabLink('GitHub', sites.github?.url ?? ''), '  ', newTabLink('LinkedIn', sites.linkedin?.url ?? ''));
-            return card;
         }
 
         function clearTerminal() {
@@ -493,8 +480,7 @@
             if (history.length > 50) history.shift();
             resetInput();
             const normalized = value.toLowerCase();
-            const fileCommand = Object.hasOwn(fileCommands, normalized) ? fileCommands[normalized] ?? normalized : normalized;
-            const command = Object.hasOwn(aliases, fileCommand) ? aliases[fileCommand] ?? fileCommand : fileCommand;
+            const command = Object.hasOwn(fileCommands, normalized) ? fileCommands[normalized] ?? normalized : normalized;
             if (command === 'clear') {
                 clearTerminal();
                 return;
@@ -528,10 +514,7 @@
             } else if (command === 'full-about') {
                 reply.textContent = bio.join('\n\n');
             } else if (Object.hasOwn(sections, command)) {
-                entry.append(entryList(sections[command] ?? []));
-            } else if (command === 'resume') {
-                entry.append(resumeCard());
-            } else if (command === 'cat yotei') {
+                entry.append(entryList(sections[command] ?? []));            } else if (command === 'cat yotei') {
                 entry.append(mountain());
             } else if (command === KONAMI.toLowerCase()) {
                 entry.append(mountain());
@@ -737,6 +720,8 @@
     .output :global(.entry) { margin-bottom: 1rem; }
     .output :global(p) { white-space: pre-wrap; margin: 0; font-size: inherit; }
     .output :global(.role) { color: var(--cyan); }
+    .output :global(.entries.spaced > * + *) { margin-top: 1em; }
+    .output :global(.note) { padding-left: 4ch; text-indent: -2ch; }
     .output :global(.echo) { color: var(--purple); margin-bottom: 0.5rem; }
     .output :global(.mountain) { max-width: 100%; overflow-x: auto; margin: 0; font: inherit; line-height: 1.3; white-space: pre; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
     .output :global(.neofetch) { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem 3ch; }

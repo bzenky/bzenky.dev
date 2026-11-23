@@ -5,20 +5,34 @@ export const experience: Entry[] = [
     {
         title: 'Frontend Developer',
         place: { label: 'Axoma', url: 'https://www.axoma.tech' },
-        detail: 'oct 2023 – now · São Paulo',
-        notes: ['Formerly SMT Code.', 'Building features and maintaining PlaybookUX, an international research SaaS.'],
+        detail: 'formerly SMT Code · oct 2023 – now · São Paulo',
+        notes: [
+            'Active involvement in the PlaybookUX project.',
+            'Development of new website features and functionalities, focusing on improving user experience and meeting project-specific requirements through effective implementation of solutions.',
+            'Ongoing maintenance of existing websites, including applying updates, implementing fixes, and making improvements to ensure optimal functionality and performance.',
+        ],
     },
     {
         title: 'Front-end Developer',
         place: { label: 'Magazord Digital Commerce', url: 'https://www.magazord.com.br' },
         detail: 'nov 2021 – sep 2023 · Rio do Sul',
-        notes: ['Rebuilt features in React and built pages from Figma designs.', 'Handled support tickets.'],
+        notes: [
+            'Recreated and maintained existing features in React.',
+            'Actively participated in the development, redesign, and creation of pages based on Figma prototypes.',
+            'Developed new functionalities and features for websites, collaborating with design and development teams to implement solutions that improve user experience and meet project-specific requirements.',
+            'Conducted ongoing maintenance of existing websites, including applying updates, fixes, and enhancements to ensure optimal functionality and performance.',
+            'Handled support tickets, comprehended and promptly resolved user requests accurately.',
+        ],
     },
     {
         title: 'Front-end Developer',
         place: { label: 'Rota Seguros', url: 'https://www.rotaseguros.com.br' },
         detail: 'aug 2021 – oct 2021 · Belo Horizonte',
-        notes: ['Made websites and landing pages faster and mobile-friendly.'],
+        notes: [
+            'Developed websites and landing pages.',
+            'Maintained and optimized websites for improved performance.',
+            'Ensured enhanced usability and user experience across mobile and desktop platforms.',
+        ],
     },
 ];
 
