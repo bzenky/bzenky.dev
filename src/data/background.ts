@@ -56,15 +56,66 @@ export const education: Entry[] = [
 
 export const projects: Entry[] = [
     {
+        title: 'spoti',
+        place: { label: 'spoti.bzenky.dev', url: 'https://spoti.bzenky.dev' },
+        detail: 'Spotify CLI',
+        notes: [
+            'Control Spotify playback from your terminal through Spotify Connect.',
+            'Local-first, and installs from npm as @bzenky/spoti.',
+        ],
+    },
+    {
+        title: 'psnote',
+        place: { label: 'psnote.bzenky.dev', url: 'https://psnote.bzenky.dev' },
+        detail: 'screenshot annotation',
+        notes: [
+            'Paste a screenshot, mark it up with arrows, text and redactions, and copy it back.',
+            'Runs entirely in the browser: no accounts, no uploads.',
+        ],
+    },
+    {
+        title: 'branch-care',
+        place: { label: 'github.com/bzenky/branch-care', url: 'https://github.com/bzenky/branch-care' },
+        detail: 'Git CLI',
+        notes: [
+            'Finds merged and stale Git branches, local and remote, and cleans them up safely.',
+            'Previews every deletion and asks first. On npm as @bzenky/branch-care.',
+        ],
+    },
+    {
+        title: 'claude-ship',
+        place: { label: 'github.com/bzenky/claude-ship', url: 'https://github.com/bzenky/claude-ship' },
+        detail: 'Claude Code plugin',
+        notes: [
+            'Takes one change, from a ticket or a plain request, to a draft pull request.',
+            'Plans, builds and checks the work, and stops where a person has to decide.',
+        ],
+    },
+    {
+        title: 'charly',
+        place: { label: 'charly.bzenky.dev', url: 'https://charly.bzenky.dev' },
+        detail: 'avatar to ASCII',
+        notes: [
+            'Turns an avatar into colored or monochrome ASCII art with a live preview.',
+            'Exports PNG or SVG, plus a Markdown snippet for GitHub profiles. All in the browser.',
+        ],
+    },
+    {
         title: 'Yotei',
-        place: { label: 'github.com/bzenky/yotei', url: 'https://github.com/bzenky/yotei' },
-        detail: 'VS Code theme',
-        notes: ['A purple-red dawn sky, named after Mount Yōtei in Hokkaido.', 'Also for Chrome, Firefox and Slack.'],
+        place: { label: 'yotei.bzenky.dev', url: 'https://yotei.bzenky.dev' },
+        detail: 'theme',
+        notes: [
+            'A dark theme inspired by a purple and red sky at dawn, named after Mount Yōtei in Hokkaido.',
+            'Yotei, Midnight and Dawn variants for VS Code, Zed, Chrome, Firefox, Kitty, Windows Terminal, Slack, Orca and more.',
+        ],
     },
     {
         title: 'Pomo Pomodoro',
         place: { label: 'pomopomodoro.com', url: 'https://www.pomopomodoro.com/' },
         detail: 'focus timer',
-        notes: ['A Pomodoro timer paired with lo-fi live streams.'],
+        notes: [
+            'A Pomodoro timer for focus and rest cycles, 25/5/15 minutes by default.',
+            'Started as a way to pair focus sessions with lo-fi live streams.',
+        ],
     },
 ];
