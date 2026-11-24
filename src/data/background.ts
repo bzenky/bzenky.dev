@@ -74,30 +74,12 @@ export const projects: Entry[] = [
         ],
     },
     {
-        title: 'branch-care',
-        place: { label: 'github.com/bzenky/branch-care', url: 'https://github.com/bzenky/branch-care' },
-        detail: 'Git CLI',
-        notes: [
-            'Finds merged and stale Git branches, local and remote, and cleans them up safely.',
-            'Previews every deletion and asks first. On npm as @bzenky/branch-care.',
-        ],
-    },
-    {
         title: 'claude-ship',
         place: { label: 'github.com/bzenky/claude-ship', url: 'https://github.com/bzenky/claude-ship' },
         detail: 'Claude Code plugin',
         notes: [
             'Takes one change, from a ticket or a plain request, to a draft pull request.',
             'Plans, builds and checks the work, and stops where a person has to decide.',
-        ],
-    },
-    {
-        title: 'charly',
-        place: { label: 'charly.bzenky.dev', url: 'https://charly.bzenky.dev' },
-        detail: 'avatar to ASCII',
-        notes: [
-            'Turns an avatar into colored or monochrome ASCII art with a live preview.',
-            'Exports PNG or SVG, plus a Markdown snippet for GitHub profiles. All in the browser.',
         ],
     },
     {
